@@ -12,7 +12,7 @@
 <script type="text/javascript">//<![CDATA[
 fetch('./index.html').then(function (r) { return r.text() }).then(function (t) {
   var css = t.match(/href="(\.\/assets\/[^"]+\.css)"/)
-  var js = t.match(/src="(\./assets\/[^"]+\.js)"/)
+  var js = t.match(/src="(\.\/assets\/[^"]+\.js)"/)
   if (css) { var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = css[1]; document.head.appendChild(l) }
   if (js) { var s = document.createElement('script'); s.type = 'module'; s.src = js[1]; document.body.appendChild(s) }
   if (!js) { throw new Error('no bundle') }
