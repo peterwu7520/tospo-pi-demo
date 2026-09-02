@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>TOSPO Product Intelligence OS</title>
+<style>html,body{margin:0;min-height:100%;background:#141414}</style>
+</head>
+<body>
+<div id="root"><div style="padding:52px 26px;font-family:monospace;color:#8a8680;font-size:12px;letter-spacing:0.25em;line-height:2">TOSPO · PRODUCT INTELLIGENCE OS<br />LOADING…</div></div>
+<script type="text/javascript">//<![CDATA[
+fetch('./index.html').then(function (r) { return r.text() }).then(function (t) {
+  var css = t.match(/href="(\.\/assets\/[^"]+\.css)"/)
+  var js = t.match(/src="(\./assets\/[^"]+\.js)"/)
+  if (css) { var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = css[1]; document.head.appendChild(l) }
+  if (js) { var s = document.createElement('script'); s.type = 'module'; s.src = js[1]; document.body.appendChild(s) }
+  if (!js) { throw new Error('no bundle') }
+}).catch(function () {
+  document.body.innerHTML = '<p style="color:#8a8680;font-family:monospace;padding:52px 26px;font-size:12px;line-height:2">镜像加载失败 — 请使用国际版链接：<br />https://peterwu7520.github.io/tospo-pi-demo/</p>'
+})
+//]]></script>
+</body>
+</html>
