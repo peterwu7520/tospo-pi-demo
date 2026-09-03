@@ -11,7 +11,7 @@ import type { ScreenId } from './DesktopApp'
 function NextStep({ to, label, go }: { to: ScreenId; label: string; go: (s: ScreenId) => void }) {
   return (
     <div className="mt-12 flex items-center justify-between hairline-t" style={{ paddingTop: 20 }}>
-      <span className="micro">NEXT IN WORKFLOW</span>
+      <span className="micro">工作流下一步</span>
       <button className="btn-ink" onClick={() => go(to)}>{label} →</button>
     </div>
   )
@@ -21,32 +21,32 @@ function NextStep({ to, label, go }: { to: ScreenId; label: string; go: (s: Scre
 export function Market({ go }: { go: (s: ScreenId) => void }) {
   return (
     <div>
-      <div className="micro" style={{ marginBottom: 8 }}>02 · WHY THIS DIRECTION</div>
+      <div className="micro" style={{ marginBottom: 8 }}>02 · 为什么是这个方向</div>
       <h1 className="disp" style={{ fontSize: 34, margin: '0 0 6px', fontWeight: 700 }}>市场现在是什么结构？</h1>
       <p style={{ color: 'var(--graphite)', margin: '0 0 28px', maxWidth: 560 }}>
         不是"市场规模多大" —— 而是谁在哪里、价格与性能如何分布、货架被谁占着。
         图上每一个点都可以点到证据。
       </p>
 
-      <SecHead n="01.1" title="PRICE × PERFORMANCE MAP" right={<EvPill t="CONFIRMED" />} />
+      <SecHead n="01.1" title="价格 × 性能地图" right={<EvPill t="CONFIRMED" />} />
       <PricePerfMap />
       <div className="flex items-center justify-between" style={{ margin: '10px 0 34px' }}>
         <MapLegend />
         <EvTypeNote />
       </div>
       <p style={{ fontSize: 13.5, maxWidth: 640, lineHeight: 1.7 }}>
-        黄铜虚线框 = <Ev id="price-window">OPPORTUNITY ZONE</Ev>：
+        蓝色虚线框 = <Ev id="price-window">机会窗口</Ev>：
         白牌有价格无可信性能（虚线空心 = 标称未验证），Philips 有性能但价格翻倍。
         主流专业带 140–165 lm/W × ฿1,800–2,300 缺少可信玩家。
       </p>
 
-      <SecHead n="01.2" title="SPEC LANDSCAPE — 什么是 Baseline / Professional / Premium" />
+      <SecHead n="01.2" title="规格全景 — 什么是主流 / 专业 / 高端" />
       <SpecLandscape />
       <p style={{ fontSize: 13.5, color: 'var(--graphite)', margin: '10px 0 34px' }}>
-        Professional 层 = <Ev id="prof-band">130–160+ lm/W</Ev> —— 这是后面 TARGET 选 160 的唯一原因。
+        专业层 = <Ev id="prof-band">130–160+ lm/W</Ev> —— 这是后面目标选 160 的唯一原因。
       </p>
 
-      <SecHead n="01.3" title="CHANNEL LANDSCAPE — 不同品牌在哪里竞争" right={<EvPill t="PROXY" />} />
+      <SecHead n="01.3" title="渠道全景 — 不同品牌在哪里竞争" right={<EvPill t="PROXY" />} />
       <ChannelMatrix />
 
       <div className="hairline-t" style={{ marginTop: 36, paddingTop: 16 }}>
@@ -61,28 +61,28 @@ export function Market({ go }: { go: (s: ScreenId) => void }) {
 export function Customer({ go }: { go: (s: ScreenId) => void }) {
   return (
     <div>
-      <div className="micro" style={{ marginBottom: 8 }}>03 · WHY THIS DIRECTION</div>
+      <div className="micro" style={{ marginBottom: 8 }}>03 · 为什么是这个方向</div>
       <h1 className="disp" style={{ fontSize: 34, margin: '0 0 6px', fontWeight: 700 }}>EVE 现在在哪里？</h1>
       <p style={{ color: 'var(--graphite)', margin: '0 0 28px', maxWidth: 560 }}>
         市场最火的产品 ≠ EVE 最适合做的产品。Market Opportunity × Customer Gap × Customer Fit = Product Opportunity。
       </p>
 
-      <SecHead n="02.1" title="CUSTOMER GAP MAP" right={<EvPill t="INFERENCE" />} />
+      <SecHead n="02.1" title="客户差距地图" right={<EvPill t="INFERENCE" />} />
       <GapMap />
 
       <SecHead n="02.2" title="读法" />
       <div className="grid grid-cols-3 gap-6" style={{ fontSize: 13.5, lineHeight: 1.7 }}>
         <div>
-          <div className="micro" style={{ color: 'var(--risk)', marginBottom: 4 }}>⚑ GAP</div>
+          <div className="micro" style={{ color: 'var(--risk)', marginBottom: 4 }}>⚑ 差距</div>
           光效 / PF / 质保 —— 三个维度同时落后一个层级。这不是产品线更新问题，是层级跨越问题。
         </div>
         <div>
-          <div className="micro" style={{ color: 'var(--brass)', marginBottom: 4 }}>HEADROOM</div>
+          <div className="micro" style={{ color: 'var(--brass)', marginBottom: 4 }}>上探空间</div>
           价格带上探空间真实存在：EVE 当前 ฿1,290–1,690，窗口 ฿1,890–2,190 不与其自相残杀。
         </div>
         <div>
-          <div className="micro" style={{ marginBottom: 4 }}>FIT</div>
-          电商强但 Highbay 是工程生意 —— 渠道策略必须 Project + Distributor 双轨。
+          <div className="micro" style={{ marginBottom: 4 }}>匹配</div>
+          电商强但工矿灯是工程生意 —— 渠道策略必须项目 + 分销双轨。
         </div>
       </div>
 
@@ -95,13 +95,13 @@ export function Customer({ go }: { go: (s: ScreenId) => void }) {
 export function Competition({ go }: { go: (s: ScreenId) => void }) {
   return (
     <div>
-      <div className="micro" style={{ marginBottom: 8 }}>04 · WHY THIS DIRECTION</div>
+      <div className="micro" style={{ marginBottom: 8 }}>04 · 为什么是这个方向</div>
       <h1 className="disp" style={{ fontSize: 34, margin: '0 0 6px', fontWeight: 700 }}>谁在什么位置？</h1>
       <p style={{ color: 'var(--graphite)', margin: '0 0 28px', maxWidth: 560 }}>
-        每个品牌占有一个货架。找不到真实市场份额数据 —— 所以画 Presence Index，不画 Share 饼图。
+        每个品牌占有一个货架。找不到真实市场份额数据 —— 所以画存在度指数，不画份额饼图。
       </p>
 
-      <SecHead n="03.1" title="PLAYERS — 每个品牌的货架声明" />
+      <SecHead n="03.1" title="玩家 — 每个品牌的货架声明" />
       {(Object.keys(BRAND_META) as (keyof typeof BRAND_META)[]).map((b) => {
         const sku = SKUS.filter((s) => s.brand === b)[0]
         return (
@@ -115,12 +115,12 @@ export function Competition({ go }: { go: (s: ScreenId) => void }) {
       })}
 
       <div style={{ marginTop: 34 }}>
-        <SecHead n="03.2" title="MARKET PRESENCE INDEX" right={<EvPill t="PROXY" />} />
+        <SecHead n="03.2" title="市场存在指数" right={<EvPill t="PROXY" />} />
         <PresenceBars />
       </div>
 
       <p style={{ fontSize: 13.5, maxWidth: 640, lineHeight: 1.7, marginTop: 30 }}>
-        <strong style={{ fontWeight: 600 }}>结论（INFERENCE）：</strong>
+        <strong style={{ fontWeight: 600 }}>结论（分析结论）：</strong>
         Philips 占高端、白牌占低价、BEC/LAMPTAN 占专业层价格锚点 ——
         <Ev id="price-window">主流专业层"可信但可及"的位置是空的</Ev>。
       </p>
@@ -135,7 +135,7 @@ export function Opportunity({ go }: { go: (s: ScreenId) => void }) {
   const { openEvidence } = useStore()
   return (
     <div>
-      <div className="micro" style={{ marginBottom: 8 }}>05 · WHY THIS DIRECTION</div>
+      <div className="micro" style={{ marginBottom: 8 }}>05 · 为什么是这个方向</div>
       <h1 className="disp" style={{ fontSize: 34, margin: '0 0 6px', fontWeight: 700 }}>为什么是这个机会？</h1>
       <p style={{ color: 'var(--graphite)', margin: '0 0 26px', maxWidth: 560 }}>
         评分不是黑盒。82 分由九个维度合成，每一维都可以展开到证据；缺内部数据的维度直接标示。
@@ -144,16 +144,16 @@ export function Opportunity({ go }: { go: (s: ScreenId) => void }) {
       <div className="flex items-end gap-8" style={{ marginBottom: 26 }}>
         <div>
           <div className="disp num" style={{ fontSize: 84, lineHeight: 0.95, fontWeight: 700 }}>{OPPORTUNITY_SCORE}</div>
-          <div className="micro" style={{ marginTop: 6 }}>/ 100 · WEIGHTED COMPOSITE <EvPill t="INFERENCE" /></div>
+          <div className="micro" style={{ marginTop: 6 }}>/ 100 · 加权合成 <EvPill t="INFERENCE" /></div>
         </div>
-        <WhyBtn label="WHY 82? ▾" onClick={() => openEvidence('score-82')} />
+        <WhyBtn label="为什么 82 分？▾" onClick={() => openEvidence('score-82')} />
       </div>
 
-      <SecHead n="04.1" title="NINE DIMENSIONS — 点击展开证据" />
+      <SecHead n="04.1" title="九个维度 — 点击展开证据" />
       <DimBars />
 
       <div style={{ marginTop: 36 }}>
-        <SecHead n="04.2" title="OPPORTUNITY WINDOW — 五元组" />
+        <SecHead n="04.2" title="机会窗口 — 五元组" />
         <div className="grid" style={{ gridTemplateColumns: 'repeat(5, 1fr)', gap: 0, border: '1px solid var(--hairline)' }}>
           {OPPORTUNITY_WINDOW.map((w, i) => (
             <button key={w.k} onClick={() => openEvidence(w.ev)}
@@ -164,7 +164,7 @@ export function Opportunity({ go }: { go: (s: ScreenId) => void }) {
           ))}
         </div>
         <p style={{ fontSize: 13, color: 'var(--graphite)', marginTop: 12 }}>
-          这才是 Product Opportunity Window：PRICE × SPEC × DESIGN × CHANNEL × POSITIONING —— 不是一句"这个价格可以进入"。
+          这才是产品机会窗口：价格 × 规格 × 设计 × 渠道 × 定位 —— 不是一句"这个价格可以进入"。
         </p>
       </div>
 
@@ -179,12 +179,12 @@ export function Strategy({ go }: { go: (s: ScreenId) => void }) {
   return (
     <div>
       <div className="micro" style={{ marginBottom: 8 }}>06 · THE PRODUCTS</div>
-      <h1 className="disp" style={{ fontSize: 34, margin: '0 0 6px', fontWeight: 700 }}>Target Product Definition</h1>
+      <h1 className="disp" style={{ fontSize: 34, margin: '0 0 6px', fontWeight: 700 }}>目标产品定义</h1>
       <p style={{ color: 'var(--graphite)', margin: '0 0 26px', maxWidth: 560 }}>
         这些参数不是突然出现的。每一行背后都有一条 "市场发现 → 参数决策" 的链。
       </p>
 
-      <SecHead n="05.1" title="TARGET SPEC — 每行可问 WHY" right={<EvPill t="TARGET" />} />
+      <SecHead n="05.1" title="目标规格 — 每行可问为什么" right={<EvPill t="TARGET" />} />
       <div>
         {TARGET_SPECS.map((s) => (
           <SpecRowD key={s.key} param={s.param} value={s.value} ev={s.ev} why={s.why} onWhy={() => openEvidence(s.ev)} />
@@ -193,7 +193,7 @@ export function Strategy({ go }: { go: (s: ScreenId) => void }) {
 
       <div className="mt-8" style={{ fontSize: 13.5, lineHeight: 1.7, maxWidth: 640 }}>
         <strong style={{ fontWeight: 600 }}>渠道与定位：</strong>
-        <Ev id="channel-fit">Project + Distributor</Ev> · <Ev id="price-window">Mainstream Professional</Ev>
+        <Ev id="channel-fit">项目 + 分销</Ev> · <Ev id="price-window">主流专业层</Ev>
       </div>
 
       <NextStep to="studio" label="参数定了 → 它应该长什么样" go={go} />

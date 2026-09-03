@@ -14,7 +14,7 @@ import type { ScreenId } from './DesktopApp'
 function NextStep({ to, label, go }: { to: ScreenId; label: string; go: (s: ScreenId) => void }) {
   return (
     <div className="mt-12 flex items-center justify-between hairline-t" style={{ paddingTop: 20 }}>
-      <span className="micro">NEXT IN WORKFLOW</span>
+      <span className="micro">工作流下一步</span>
       <button className="btn-ink" onClick={() => go(to)}>{label} →</button>
     </div>
   )
@@ -65,20 +65,20 @@ export function Studio({ go }: { go: (s: ScreenId) => void }) {
 
           {/* first-layer only: concept + 3 key params */}
           <div className="text-center" style={{ marginTop: 6 }}>
-            <div className="micro" style={{ color: 'var(--brass)' }}>CONCEPT {c.id} — {c.name}{c.recommended ? ' · RECOMMENDED' : ''}</div>
+            <div className="micro" style={{ color: 'var(--brass)' }}>概念 {c.id} — {c.name}{c.recommended ? ' · 推荐' : ''}</div>
             <div className="disp num" style={{ fontSize: 30, fontWeight: 500, marginTop: 4 }}>
               <span key={`${config.power}-${concept}`} className="num-pop" style={{ display: 'inline-block' }}>
                 {config.power}W · {lumen.toLocaleString()} lm · 160 lm/W
               </span>
             </div>
-            <div className="num" style={{ color: 'var(--stone)', marginTop: 2 }}>{fmtTHB(bandOf(config)[0])}–{fmtTHB(bandOf(config)[1]).slice(1)} retail</div>
+            <div className="num" style={{ color: 'var(--stone)', marginTop: 2 }}>{fmtTHB(bandOf(config)[0])}–{fmtTHB(bandOf(config)[1]).slice(1)} 零售</div>
           </div>
 
           {/* progressive disclosure entries */}
           <div className="flex flex-wrap justify-center gap-3" style={{ marginTop: 22 }}>
-            <button className="btn-ghost" onClick={() => setWhyB(!whyB)}>{whyB ? 'HIDE' : 'WHY B WINS'}</button>
-            <button className="btn-ghost" onClick={() => setHs(hs ? null : 'heatsink')}>WHY DOES IT LOOK LIKE THIS</button>
-            <button className="btn-ink" onClick={() => configRef.current?.scrollIntoView({ behavior: 'smooth' })}>CONFIGURE</button>
+            <button className="btn-ghost" onClick={() => setWhyB(!whyB)}>{whyB ? '收起' : '为什么是 B'}</button>
+            <button className="btn-ghost" onClick={() => setHs(hs ? null : 'heatsink')}>为什么长这样</button>
+            <button className="btn-ink" onClick={() => configRef.current?.scrollIntoView({ behavior: 'smooth' })}>开始配置</button>
           </div>
 
           {whyB && (
@@ -98,10 +98,10 @@ export function Studio({ go }: { go: (s: ScreenId) => void }) {
           <div className="rise-in" style={{ border: '1px solid var(--hairline-dark)', padding: '18px 18px 6px', borderRadius: 3 }}>
             <div className="flex items-center justify-between" style={{ marginBottom: 12 }}>
               <span className="micro" style={{ color: 'var(--brass)' }}>{hot.label}</span>
-              <button className="whybtn" style={{ borderColor: 'var(--hairline-dark)', color: 'var(--stone)' }} onClick={() => setHs(null)}>CLOSE</button>
+              <button className="whybtn" style={{ borderColor: 'var(--hairline-dark)', color: 'var(--stone)' }} onClick={() => setHs(null)}>关闭</button>
             </div>
             <WhyChain chain={hot.chain} />
-            <div className="proto-note" style={{ color: 'var(--stone)', paddingBottom: 10 }}>MARKET → ENGINEERING → FORM</div>
+            <div className="proto-note" style={{ color: 'var(--stone)', paddingBottom: 10 }}>市场 → 工程 → 形态</div>
           </div>
         )}
       </div>
@@ -109,37 +109,37 @@ export function Studio({ go }: { go: (s: ScreenId) => void }) {
       {/* CONFIGURATOR — automotive style, one state */}
       <div ref={configRef} style={{ marginTop: 40, borderTop: '1px solid var(--hairline-dark)', paddingTop: 22 }}>
         <div className="flex items-center justify-between" style={{ marginBottom: 16 }}>
-          <span className="micro micro-dark">CONFIGURE — 改动同帧传播到 SPEC / COMMERCIAL / RISK / BRIEF</span>
+          <span className="micro micro-dark">配置 — 改动同帧传播到 规格 / 商业 / 风险 / 简报</span>
           {deltaCount > 0 && (
             <button className="whybtn" style={{ borderColor: 'var(--brass)', color: 'var(--brass)' }} onClick={resetConfig}>
-              RESET TO TARGET <span className="delta-dot" />Δ{deltaCount}
+              重置为目标 <span className="delta-dot" />Δ{deltaCount}
             </button>
           )}
         </div>
         <div className="grid gap-4" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))' }}>
-          <CfgRow label="POWER" delta={isDelta('power')}>
+          <CfgRow label="功率" delta={isDelta('power')}>
             <div className="seg">{CONFIG_OPTIONS.power.map((v) => <button key={v} className={config.power === v ? 'on' : ''} onClick={() => setConfig({ power: v })}>{v}W</button>)}</div>
           </CfgRow>
-          <CfgRow label="CCT" delta={isDelta('cct')}>
+          <CfgRow label="色温" delta={isDelta('cct')}>
             <div className="seg">{CONFIG_OPTIONS.cct.map((v) => <button key={v} className={config.cct === v ? 'on' : ''} onClick={() => setConfig({ cct: v })}>{v}K</button>)}</div>
           </CfgRow>
-          <CfgRow label="BEAM" delta={isDelta('beam')}>
+          <CfgRow label="配光" delta={isDelta('beam')}>
             <div className="seg">{CONFIG_OPTIONS.beam.map((v) => <button key={v} className={config.beam === v ? 'on' : ''} onClick={() => setConfig({ beam: v })}>{v}°</button>)}</div>
           </CfgRow>
-          <CfgRow label="CONTROL" delta={isDelta('control')}>
+          <CfgRow label="控制" delta={isDelta('control')}>
             <div className="seg">{CONFIG_OPTIONS.control.map((v) => <button key={v} className={config.control === v ? 'on' : ''} onClick={() => setConfig({ control: v })}>{v}</button>)}</div>
           </CfgRow>
-          <CfgRow label="WARRANTY" delta={isDelta('warranty')}>
+          <CfgRow label="质保" delta={isDelta('warranty')}>
             <div className="seg">{CONFIG_OPTIONS.warranty.map((v) => <button key={v} className={config.warranty === v ? 'on' : ''} onClick={() => setConfig({ warranty: v })}>{v}Y</button>)}</div>
           </CfgRow>
         </div>
 
         {/* live consequences */}
         <div className="flex flex-wrap items-baseline gap-x-8 gap-y-2" style={{ marginTop: 20, borderTop: '1px solid var(--hairline-dark-soft)', paddingTop: 14 }}>
-          <span className="micro micro-dark">CONSEQUENCE</span>
+          <span className="micro micro-dark">实时后果</span>
           <span className="num disp" style={{ fontSize: 18 }}>{lumen.toLocaleString()} lm</span>
           <span className="num disp" style={{ fontSize: 18 }}>{fmtTHB(bandOf(config)[0])}–{fmtTHB(bandOf(config)[1]).slice(1)}</span>
-          <span className="num disp" style={{ fontSize: 18, color: 'var(--brass)' }}>cost ≈ {fmtTHB(scenario.targetCost)}</span>
+          <span className="num disp" style={{ fontSize: 18, color: 'var(--brass)' }}>成本 ≈ {fmtTHB(scenario.targetCost)}</span>
         </div>
         {risks.map((r) => (
           <div key={r.id} className="num" style={{ color: 'var(--risk)', fontSize: 12.5, marginTop: 8 }}>⚑ {r.text}</div>
@@ -147,11 +147,11 @@ export function Studio({ go }: { go: (s: ScreenId) => void }) {
       </div>
 
       <div className="flex items-center justify-between" style={{ marginTop: 36, borderTop: '1px solid var(--hairline-dark)', paddingTop: 20 }}>
-        <span className="micro micro-dark">NEXT IN WORKFLOW</span>
+        <span className="micro micro-dark">工作流下一步</span>
         <div className="flex gap-3">
-          <button className="btn-ghost" onClick={() => go('engineering')}>07 ENGINEERING</button>
-          <button className="btn-ghost" onClick={() => go('commercial')}>08 COMMERCIAL</button>
-          <button className="btn-ink" onClick={() => go('brief')}>生成 PRODUCT BRIEF →</button>
+          <button className="btn-ghost" onClick={() => go('engineering')}>07 工程</button>
+          <button className="btn-ghost" onClick={() => go('commercial')}>08 商业</button>
+          <button className="btn-ink" onClick={() => go('brief')}>生成产品简报 →</button>
         </div>
       </div>
     </div>
@@ -161,7 +161,7 @@ export function Studio({ go }: { go: (s: ScreenId) => void }) {
 function CfgRow({ label, delta, children }: { label: string; delta: boolean; children: React.ReactNode }) {
   return (
     <div>
-      <div className="micro micro-dark" style={{ marginBottom: 6 }}>{delta && <span className="delta-dot" />}{label}{delta && <span style={{ color: 'var(--brass)' }}> Δ vs TARGET</span>}</div>
+      <div className="micro micro-dark" style={{ marginBottom: 6 }}>{delta && <span className="delta-dot" />}{label}{delta && <span style={{ color: 'var(--brass)' }}> Δ 偏离目标</span>}</div>
       {children}
     </div>
   )
@@ -173,10 +173,10 @@ export function Engineering({ go }: { go: (s: ScreenId) => void }) {
   return (
     <div>
       <div className="micro" style={{ marginBottom: 8 }}>08 · THE PRODUCTS</div>
-      <h1 className="disp" style={{ fontSize: 34, margin: '0 0 14px', fontWeight: 700 }}>Engineering Intent</h1>
+      <h1 className="disp" style={{ fontSize: 34, margin: '0 0 14px', fontWeight: 700 }}>工程意图</h1>
       <div style={{ border: '1px solid var(--brass)', background: 'var(--brass-soft)', padding: '10px 14px', marginBottom: 26 }}
         className="micro">
-        ENGINEERING INTENT — SUBJECT TO ENGINEERING VALIDATION. 这不是 CAD，不是 Final Structure。
+        工程意图 — 待工程验证。这不是 CAD，不是最终结构。
       </div>
 
       {ENGINEERING_INTENTS.map((e) => {
@@ -186,9 +186,9 @@ export function Engineering({ go }: { go: (s: ScreenId) => void }) {
             <button onClick={() => setOpen(open === e.id ? null : e.id)}
               className="flex w-full items-baseline gap-5"
               style={{ background: 'none', border: 'none', padding: '12px 0', cursor: 'pointer', textAlign: 'left' }}>
-              <span className="micro" style={{ width: 170, flex: 'none' }}>{e.t.toUpperCase()}</span>
+              <span className="micro" style={{ width: 170, flex: 'none' }}>{e.t}</span>
               <span style={{ flex: 1, fontSize: 13.5 }}>{e.d}</span>
-              <span className="micro" style={{ color: 'var(--brass)' }}>{open === e.id ? '− WHY 链' : '+ WHY 链'}</span>
+              <span className="micro" style={{ color: 'var(--brass)' }}>{open === e.id ? '− 为什么链' : '+ 为什么链'}</span>
             </button>
             {open === e.id && hs && (
               <div className="rise-in" style={{ padding: '4px 0 18px 190px', maxWidth: 420 }}>
@@ -211,17 +211,17 @@ export function Commercial({ go }: { go: (s: ScreenId) => void }) {
   return (
     <div>
       <div className="micro" style={{ marginBottom: 8 }}>09 · THE PRODUCTS</div>
-      <h1 className="disp" style={{ fontSize: 34, margin: '0 0 14px', fontWeight: 700 }}>Commercial Scenario</h1>
+      <h1 className="disp" style={{ fontSize: 34, margin: '0 0 14px', fontWeight: 700 }}>商业情景</h1>
       <div style={{ border: '1px solid var(--brass)', background: 'var(--brass-soft)', padding: '10px 14px', marginBottom: 26 }}
         className="micro">
-        SCENARIO MODEL — NOT A QUOTATION. <EvPill t="ESTIMATE" />
+        情景模型 — 不是报价。<EvPill t="ESTIMATE" />
       </div>
 
       <Waterfall />
 
       <div className="grid gap-5" style={{ gridTemplateColumns: '1fr 1fr', marginTop: 26 }}>
         <div>
-          <div className="micro" style={{ marginBottom: 8 }}>RETAIL PRICE POINT</div>
+          <div className="micro" style={{ marginBottom: 8 }}>零售价格点</div>
           <input type="range" min={band[0]} max={band[1]} step={10}
             value={scenario.retail}
             onChange={(e) => setAdj({ retailPoint: +e.target.value })}
@@ -229,7 +229,7 @@ export function Commercial({ go }: { go: (s: ScreenId) => void }) {
           <div className="num disp" style={{ fontSize: 22 }}>{fmtTHB(scenario.retail)}</div>
         </div>
         <div>
-          <div className="micro" style={{ marginBottom: 8 }}>RETAIL MARGIN / DIST MARGIN</div>
+          <div className="micro" style={{ marginBottom: 8 }}>零售毛利 / 分销毛利</div>
           <div className="seg" style={{ marginRight: 8 }}>
             {[25, 30, 35].map((v) => <button key={v} className={adj.retailMarginPct === v ? 'on' : ''} onClick={() => setAdj({ retailMarginPct: v })}>{v}%</button>)}
           </div>
@@ -238,17 +238,17 @@ export function Commercial({ go }: { go: (s: ScreenId) => void }) {
           </div>
         </div>
         <div>
-          <div className="micro" style={{ marginBottom: 8 }}>WARRANTY（ONE STATE — 同步全局）</div>
+          <div className="micro" style={{ marginBottom: 8 }}>质保（单一状态 — 同步全局）</div>
           <div className="seg">{[3, 5].map((v) => <button key={v} className={config.warranty === v ? 'on' : ''} onClick={() => setConfig({ warranty: v })}>{v}Y</button>)}</div>
         </div>
         <div>
-          <div className="micro" style={{ marginBottom: 8 }}>CONTROL（ONE STATE — 同步全局）</div>
+          <div className="micro" style={{ marginBottom: 8 }}>控制（单一状态 — 同步全局）</div>
           <div className="seg">{['ON/OFF', '0-10V', 'DALI', 'Sensor Ready'].map((v) => <button key={v} className={config.control === v ? 'on' : ''} onClick={() => setConfig({ control: v })}>{v}</button>)}</div>
         </div>
       </div>
 
       <div className="flex items-baseline gap-8 hairline-t" style={{ marginTop: 26, paddingTop: 16 }}>
-        <span className="micro">TARGET PURCHASE COST</span>
+        <span className="micro">目标采购成本</span>
         <span className="disp num" style={{ fontSize: 34, fontWeight: 700, color: 'var(--brass)' }}>{fmtTHB(scenario.targetCost)}</span>
         <span className="num" style={{ color: 'var(--graphite)' }}>≈ FOB ${scenario.targetCostUSD}</span>
         {scenario.controlDelta > 0 && <span className="num" style={{ color: 'var(--risk)', fontSize: 12.5 }}>含控制/质保附加 +{fmtTHB(scenario.controlDelta)}</span>}
@@ -260,33 +260,33 @@ export function Commercial({ go }: { go: (s: ScreenId) => void }) {
 }
 
 /* ─────────────────────────── 09 PRODUCT BRIEF ─────────────────────── */
-const BRIEF_CLASS = ['MARKET CONFIRMED', 'TARGET', 'ENGINEERING TO VALIDATE', 'COMMERCIAL TO VALIDATE', 'CUSTOMER TO CONFIRM'] as const
+const BRIEF_CLASS = ['市场已证实', '目标值', '待工程验证', '待商业验证', '待客户确认'] as const
 
 export function Brief({ go }: { go: (s: ScreenId) => void }) {
   const { config, concept, lumen, scenario, risks } = useStore()
   const c = CONCEPTS.find((x) => x.id === concept)!
   const rows: [string, string, number][] = [
-    ['OPPORTUNITY', '82/100 — 主流专业层空位（WHY 82? 九维可展开）', 0],
-    ['CUSTOMER GAP', 'EVE 90 lm/W / PF 0.5 → Professional 130–160+ / PF≥0.9', 0],
-    ['TARGET USER', '泰国厂房/仓储业主 · 工程商 · 分销渠道', 4],
-    ['POSITIONING', 'Mainstream Professional — 可信但可及', 1],
-    ['RETAIL', `${fmtTHB(bandOf(config)[0])}–${fmtTHB(bandOf(config)[1]).slice(1)} · PRICE POINT ${fmtTHB(scenario.retail)}`, 3],
-    ['TARGET PURCHASE COST', `${fmtTHB(scenario.targetCost)} ≈ FOB $${scenario.targetCostUSD}`, 3],
-    ['POWER / LUMEN', `${config.power}W · ${lumen.toLocaleString()} lm`, 1],
-    ['EFFICACY / PF', `160 lm/W · PF ≥ 0.95`, 1],
-    ['IP / IK / BEAM', `IP65 · IK08 · ${config.beam}°`, 2],
-    ['CCT / CONTROL', `${config.cct}K · ${config.control}`, 1],
-    ['WARRANTY', `${config.warranty}Y`, 3],
-    ['CMF', '哑黑压铸铝 · 黄铜色光学环 · 家族化 Edge Language', 1],
-    ['DESIGN INTENT', `Concept ${c.id} ${c.name} — ${c.strategy}`, 1],
-    ['ENGINEERING INTENT', 'Radial fin 短热路径 · 独立驱动腔 · IP65 密封', 2],
-    ['RISK', risks.length ? risks.map((r) => r.text).join('；') : '无新增风险 — 当前配置 = TARGET', 2],
-    ['OPEN QUESTIONS', 'TOSPO Capability 评分待内部 BOM/产线数据；EVE 工程渠道资源待确认', 4],
+    ['机会', '82/100 — 主流专业层空位（为什么 82 分？九维可展开）', 0],
+    ['客户差距', 'EVE 90 lm/W / PF 0.5 → 专业层 130–160+ / PF≥0.9', 0],
+    ['目标用户', '泰国厂房/仓储业主 · 工程商 · 分销渠道', 4],
+    ['定位', '主流专业层 — 可信但可及', 1],
+    ['零售价', `${fmtTHB(bandOf(config)[0])}–${fmtTHB(bandOf(config)[1]).slice(1)} · 价格点 ${fmtTHB(scenario.retail)}`, 3],
+    ['目标采购成本', `${fmtTHB(scenario.targetCost)} ≈ FOB $${scenario.targetCostUSD}`, 3],
+    ['功率 / 光通量', `${config.power}W · ${lumen.toLocaleString()} lm`, 1],
+    ['光效 / PF', `160 lm/W · PF ≥ 0.95`, 1],
+    ['IP / IK / 配光', `IP65 · IK08 · ${config.beam}°`, 2],
+    ['色温 / 控制', `${config.cct}K · ${config.control}`, 1],
+    ['质保', `${config.warranty}Y`, 3],
+    ['CMF', '哑黑压铸铝 · 品牌蓝光学环 · 家族化边缘语言', 1],
+    ['设计意图', `概念 ${c.id} ${c.name} — ${c.strategy}`, 1],
+    ['工程意图', '放射鳍片短热路径 · 独立驱动腔 · IP65 密封', 2],
+    ['风险', risks.length ? risks.map((r) => r.text).join('；') : '无新增风险 — 当前配置 = 目标值', 2],
+    ['待确认问题', 'TOSPO 能力匹配评分待内部 BOM/产线数据；EVE 工程渠道资源待确认', 4],
   ]
   return (
     <div>
       <div className="micro" style={{ marginBottom: 8 }}>10 · DECIDE & LAUNCH</div>
-      <h1 className="disp" style={{ fontSize: 34, margin: '0 0 6px', fontWeight: 700 }}>Product Definition Brief</h1>
+      <h1 className="disp" style={{ fontSize: 34, margin: '0 0 6px', fontWeight: 700 }}>产品定义简报</h1>
       <p style={{ color: 'var(--graphite)', margin: '0 0 22px', maxWidth: 560 }}>
         市场研究已经变成一个产品需求。每一项都带分类标注 —— 已确认、目标、还是待验证。
       </p>
@@ -307,7 +307,7 @@ export function Brief({ go }: { go: (s: ScreenId) => void }) {
 
       <div className="mt-10 flex items-center justify-between hairline-t" style={{ paddingTop: 20 }}>
         <span style={{ fontSize: 13.5, color: 'var(--graphite)' }}>系统不能停在 Brief。下一步是立项闸门。</span>
-        <button className="btn-ink" onClick={() => go('gate')}>MOVE TO PROJECT GATE →</button>
+        <button className="btn-ink" onClick={() => go('gate')}>进入立项闸门 →</button>
       </div>
     </div>
   )
@@ -319,7 +319,7 @@ export function Gate() {
   return (
     <div>
       <div className="micro" style={{ marginBottom: 8 }}>11 · DECIDE & LAUNCH</div>
-      <h1 className="disp" style={{ fontSize: 34, margin: '0 0 6px', fontWeight: 700 }}>Project Gate</h1>
+      <h1 className="disp" style={{ fontSize: 34, margin: '0 0 6px', fontWeight: 700 }}>立项闸门</h1>
       <p style={{ color: 'var(--graphite)', margin: '0 0 24px', maxWidth: 560 }}>
         有了闸门，系统才从"AI 建议工具"变成产品立项系统。
       </p>
@@ -339,15 +339,15 @@ export function Gate() {
           <span className="micro" style={{
             color: g.status === 'done' ? 'var(--brass)' : g.status === 'active' ? 'var(--ink)' : 'var(--graphite)',
           }}>
-            {g.status === 'done' ? '● PASSED' : g.status === 'active' ? '◐ IN PROGRESS' : '○ PENDING'}
+            {g.status === 'done' ? '● 已通过' : g.status === 'active' ? '◐ 进行中' : '○ 待启动'}
           </span>
           {g.note && <span style={{ flex: 1, textAlign: 'right', fontSize: 12, color: 'var(--graphite)' }}>{g.note}</span>}
         </div>
       ))}
 
       <p style={{ fontSize: 13, color: 'var(--graphite)', marginTop: 26, lineHeight: 1.7 }}>
-        PUBLIC DATA STARTS THE DECISION. INTERNAL DATA SHARPENS THE DECISION.<br />
-        G3 / G4 等待得邦内部数据接入 —— 接入后不是重做系统，而是提高 Confidence。
+        公开数据启动决策，内部数据锐化决策。<br />
+        G3 / G4 等待得邦内部数据接入 —— 接入后不是重做系统，而是提高置信度。
       </p>
     </div>
   )

@@ -28,8 +28,8 @@ function Shell() {
       {device === 'desktop' ? (
         <DesktopApp />
       ) : (
-        <div className="flex flex-col items-center justify-center" style={{ height: '100%', background: '#211E19', gap: 14 }}>
-          <div className="micro mobile-label" style={{ color: '#8A8680' }}>MOBILE NATIVE EXPERIENCE — EXPLORE · PRESENT · DECIDE</div>
+        <div className="flex flex-col items-center justify-center" style={{ height: '100%', background: 'var(--void)', gap: 14 }}>
+          <div className="micro mobile-label" style={{ color: 'var(--stone)' }}>手机原生体验 — 探索 · 演示 · 决策</div>
           <div className="phone" style={{ transform: `scale(${scale})`, flex: 'none' }}>
             <MobileApp />
           </div>
@@ -37,10 +37,10 @@ function Shell() {
       )}
 
       {/* prototype device switcher */}
-      <div className="seg" style={{ position: 'fixed', right: 18, bottom: 16, zIndex: 90, background: 'var(--paper)', boxShadow: '0 6px 24px rgba(20,19,15,.18)' }}>
+      <div className="seg" style={{ position: 'fixed', right: 18, bottom: 16, zIndex: 90, background: 'var(--paper)', boxShadow: '0 6px 24px rgba(10,34,51,.18)' }}>
         {(['desktop', 'mobile'] as const).map((d) => (
           <button key={d} className={device === d ? 'on' : ''} onClick={() => setDevice(d)}>
-            {d === 'desktop' ? 'DESKTOP' : 'MOBILE'}
+            {d === 'desktop' ? '电脑版' : '手机版'}
           </button>
         ))}
       </div>

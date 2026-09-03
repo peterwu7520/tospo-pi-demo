@@ -13,6 +13,7 @@ export interface Evidence {
   value: string
   type: EvType
   source: string
+  url?: string
   date: string
   confidence: 'High' | 'Medium' | 'Low' | '—'
   reasoning: string
@@ -20,128 +21,128 @@ export interface Evidence {
 }
 
 export const EVIDENCE_TYPE_META: Record<EvType, { desc: string; cssVar: string }> = {
-  CONFIRMED: { desc: 'Publicly verifiable', cssVar: 'var(--ev-confirmed)' },
-  PROXY: { desc: 'Observable proxy — not market share', cssVar: 'var(--ev-proxy)' },
-  ESTIMATE: { desc: 'Analyst estimate', cssVar: 'var(--ev-estimate)' },
-  INFERENCE: { desc: 'Analytical conclusion', cssVar: 'var(--ev-inference)' },
-  TARGET: { desc: 'Recommended target — not a market fact', cssVar: 'var(--ev-target)' },
-  INTERNAL: { desc: 'Internal data required', cssVar: 'var(--ev-internal)' },
+  CONFIRMED: { desc: '公开信息可核实', cssVar: 'var(--ev-confirmed)' },
+  PROXY: { desc: '可观察指标 — 非市场份额', cssVar: 'var(--ev-proxy)' },
+  ESTIMATE: { desc: '分析估计', cssVar: 'var(--ev-estimate)' },
+  INFERENCE: { desc: '分析结论', cssVar: 'var(--ev-inference)' },
+  TARGET: { desc: '建议目标值 — 非市场事实', cssVar: 'var(--ev-target)' },
+  INTERNAL: { desc: '需内部数据', cssVar: 'var(--ev-internal)' },
 }
 
 export const EVIDENCE: Evidence[] = [
   {
-    id: 'eve-efficacy', label: 'EVE current highbay efficacy', value: '≈ 90 lm/W', type: 'CONFIRMED',
-    source: 'EVE Lighting TH — public product pages', date: 'Retrieved 2026-08', confidence: 'High',
-    reasoning: 'EVE 在售工矿灯公开规格标称约 90 lm/W，处于 Value/Mainstream 层。',
-    supports: 'Decision: 以 160 lm/W 进入 Professional 层',
+    id: 'eve-efficacy', label: 'EVE 在售工矿灯光效', value: '≈ 90 lm/W', type: 'CONFIRMED',
+    source: 'EVE Lighting 泰国官网 · 公开产品页', url: 'https://www.evelighting.com/', date: '2026-08 检索', confidence: 'High',
+    reasoning: 'EVE 在售工矿灯公开规格标称约 90 lm/W，处于价值/主流层。',
+    supports: '决策：以 160 lm/W 进入专业层',
   },
   {
-    id: 'eve-pf', label: 'EVE current power factor', value: 'PF 0.5', type: 'CONFIRMED',
-    source: 'EVE Lighting TH — public spec label', date: 'Retrieved 2026-08', confidence: 'High',
+    id: 'eve-pf', label: 'EVE 在售功率因数', value: 'PF 0.5', type: 'CONFIRMED',
+    source: 'EVE Lighting 泰国官网 · 公开规格标称', url: 'https://www.evelighting.com/', date: '2026-08 检索', confidence: 'High',
     reasoning: '公开标称 PF 0.5；工业客户与项目标普遍要求 PF ≥ 0.9。',
-    supports: 'Decision: 目标 PF ≥ 0.95',
+    supports: '决策：目标 PF ≥ 0.95',
   },
   {
-    id: 'prof-band', label: 'Professional efficacy band', value: '130–160+ lm/W', type: 'INFERENCE',
-    source: 'Derived from 6 branded SKU spec sheets', date: 'Compiled 2026-08', confidence: 'High',
+    id: 'prof-band', label: '专业层光效带', value: '130–160+ lm/W', type: 'INFERENCE',
+    source: '由 6 个品牌 SKU 规格书归纳', date: '2026-08 汇编', confidence: 'High',
     reasoning: 'BEC / LAMPTAN / Philips / RACER 的专业款集中在 130–160 lm/W；>160 开始出现溢价与智能功能。',
-    supports: 'Decision: TARGET 160 lm/W — Professional 层上沿',
+    supports: '决策：目标 160 lm/W — 专业层上沿',
   },
   {
-    id: 'philips-pos', label: 'Philips GreenPerform position', value: '140 lm/W · ฿3,900', type: 'CONFIRMED',
-    source: 'Philips TH catalog & dealer listing', date: 'Retrieved 2026-08', confidence: 'High',
+    id: 'philips-pos', label: 'Philips GreenPerform 定位', value: '140 lm/W · ฿3,900', type: 'CONFIRMED',
+    source: 'Philips 泰国官网产品页（lighting.philips.co.th）', url: 'https://www.lighting.philips.co.th/prof/indoor-luminaires/high-bay-and-low-bay/high-bay/greenperform-highbay-g5/911401539245_EU/product', date: '2026-08 检索', confidence: 'High',
     reasoning: '国际品牌占据 ฿3,500+ 高价带，为项目渠道标杆。',
-    supports: 'Decision: 不正面打 Philips 价位',
+    supports: '决策：不正面打 Philips 价位',
   },
   {
-    id: 'bec-pos', label: 'BEC professional position', value: '135 lm/W · ฿2,450', type: 'CONFIRMED',
-    source: 'BEC TH public listing', date: 'Retrieved 2026-08', confidence: 'Medium',
+    id: 'bec-pos', label: 'BEC 专业款定位', value: '135 lm/W · ฿2,450', type: 'CONFIRMED',
+    source: 'BEC 泰国经销商公开挂牌（PSC Lighting）', url: 'https://psc.lighting/EN/product-detail/BEC-LED-High-Bay-Lights-SUN-22-EBE-10025-22-EBE-10027', date: '2026-08 检索', confidence: 'Medium',
     reasoning: '本土大牌占据 ฿2,300–2,600 专业价位。',
-    supports: 'Decision: 窗口应低于 BEC 同性能档',
+    supports: '决策：窗口应低于 BEC 同性能档',
   },
   {
-    id: 'lamptan-pos', label: 'LAMPTAN professional position', value: '130 lm/W · ฿2,190', type: 'CONFIRMED',
-    source: 'LAMPTAN public listing', date: 'Retrieved 2026-08', confidence: 'Medium',
+    id: 'lamptan-pos', label: 'LAMPTAN 专业款定位', value: '130 lm/W · ฿2,190', type: 'CONFIRMED',
+    source: 'LAMPTAN 泰国官网产品页', url: 'https://www.lamptan.co.th/products/high-bay-ufo-skylight', date: '2026-08 检索', confidence: 'Medium',
     reasoning: '฿2,190 是本土专业款的可见价格锚点。',
-    supports: 'Decision: TARGET 上沿贴住 ฿2,190',
+    supports: '决策：目标上沿贴住 ฿2,190',
   },
   {
-    id: 'whitelabel-claims', label: 'White-label claimed specs', value: '"160 lm/W" @ ฿1,2xx', type: 'PROXY',
-    source: 'Shopee / Lazada TH listings (unverified claims)', date: 'Observed 2026-08', confidence: 'Low',
+    id: 'whitelabel-claims', label: '白牌标称规格', value: '"160 lm/W" @ ฿1,2xx', type: 'PROXY',
+    source: 'Shopee / Lazada 泰国站在售 listing（标称未经核实）', url: 'https://shopee.co.th/search?keyword=ufo%20high%20bay%20150w', date: '2026-08 观察', confidence: 'Low',
     reasoning: '白牌虚标严重，标称不可信；但价格存在说明低价需求真实。',
-    supports: 'Decision: 以"真实标称 + 实测证据"建立信任差异',
+    supports: '决策：以"真实标称 + 实测证据"建立信任差异',
   },
   {
-    id: 'price-window', label: 'Underserved price × performance window', value: '฿1,800–2,300 × 140–165 lm/W', type: 'INFERENCE',
-    source: 'Price × Performance map analysis', date: 'Compiled 2026-08', confidence: 'Medium',
+    id: 'price-window', label: '价格 × 性能空位窗口', value: '฿1,800–2,300 × 140–165 lm/W', type: 'INFERENCE',
+    source: '价格 × 性能地图分析', date: '2026-08 汇编', confidence: 'Medium',
     reasoning: '白牌有价格无可信性能，Philips 有性能但价格翻倍；主流专业带存在空位。',
-    supports: 'Decision: TARGET ฿1,890–2,190',
+    supports: '决策：目标 ฿1,890–2,190',
   },
   {
-    id: 'channel-fit', label: 'EVE channel fit', value: 'Project + Distributor', type: 'PROXY',
-    source: 'EVE channel presence observation', date: 'Observed 2026-08', confidence: 'Medium',
-    reasoning: 'EVE 电商强，但 Highbay 决策在工程/分销渠道；需以分销 + 项目双轨进入。',
-    supports: 'Decision: 渠道策略 Project + Distributor',
+    id: 'channel-fit', label: 'EVE 渠道匹配', value: '项目 + 分销', type: 'PROXY',
+    source: 'EVE 渠道存在感观察 + 官网', url: 'https://www.evelighting.com/', date: '2026-08 观察', confidence: 'Medium',
+    reasoning: 'EVE 电商强，但工矿灯决策在工程/分销渠道；需以分销 + 项目双轨进入。',
+    supports: '决策：渠道策略 项目 + 分销',
   },
   {
-    id: 'tisi', label: 'Certification requirement', value: 'TISI mandatory', type: 'CONFIRMED',
-    source: 'Thai Industrial Standards Institute scope', date: 'Current regulation', confidence: 'High',
+    id: 'tisi', label: '认证要求', value: 'TISI 强制认证', type: 'CONFIRMED',
+    source: '泰国工业标准协会（TISI）强制范围 · TÜV SÜD 解读', url: 'https://www.tuvsud.com/en-us/services/product-certification/thailand-tisi', date: '现行法规', confidence: 'High',
     reasoning: 'LED 灯具在泰国属 TISI 强制认证范围，持证主体须为本地注册公司（EVE 具备）。',
-    supports: 'Gate: Certification',
+    supports: '闸门：认证',
   },
   {
-    id: 'warranty-bench', label: 'Warranty benchmark', value: '3–5 Y', type: 'CONFIRMED',
-    source: 'Philips 5Y / BEC 3Y public warranty terms', date: 'Retrieved 2026-08', confidence: 'High',
+    id: 'warranty-bench', label: '质保基准', value: '3–5 Y', type: 'CONFIRMED',
+    source: 'Philips 5Y（Signify 官网产品页）/ BEC 3Y 公开质保', url: 'https://www.signify.com/global/prof/indoor-luminaires/high-bay-and-low-bay/high-bay/philips-greenperform-highbay-g5/911401537445_EU/product', date: '2026-08 检索', confidence: 'High',
     reasoning: '专业层质保基准 3–5 年；EVE 现状约 2 年。',
-    supports: 'Decision: TARGET 3–5Y',
+    supports: '决策：目标 3–5Y',
   },
   {
-    id: 'target-160', label: 'Target efficacy', value: '160 lm/W', type: 'TARGET',
-    source: 'TOSPO recommendation', date: '2026-09', confidence: '—',
-    reasoning: 'Professional 层上沿 = 可感知代差；落在窗口内且压过 LAMPTAN/BEC 同价位款。',
-    supports: 'Target Product Definition',
+    id: 'target-160', label: '目标光效', value: '160 lm/W', type: 'TARGET',
+    source: 'TOSPO 建议', date: '2026-09', confidence: '—',
+    reasoning: '专业层上沿 = 可感知代差；落在窗口内且压过 LAMPTAN/BEC 同价位款。',
+    supports: '目标产品定义',
   },
   {
-    id: 'target-price', label: 'Target retail band', value: '฿1,890–2,190', type: 'TARGET',
-    source: 'TOSPO recommendation', date: '2026-09', confidence: '—',
+    id: 'target-price', label: '目标零售价带', value: '฿1,890–2,190', type: 'TARGET',
+    source: 'TOSPO 建议', date: '2026-09', confidence: '—',
     reasoning: '上沿贴 LAMPTAN ฿2,190 锚点，下沿与白牌拉开 ≥฿600 信任距离。',
-    supports: 'Target Product Definition',
+    supports: '目标产品定义',
   },
   {
-    id: 'score-82', label: 'Opportunity score', value: '82 / 100', type: 'INFERENCE',
-    source: 'Opportunity engine — 9 weighted dimensions', date: 'Computed 2026-09', confidence: 'Medium',
+    id: 'score-82', label: '机会评分', value: '82 / 100', type: 'INFERENCE',
+    source: '机会引擎 — 9 维加权', date: '2026-09 计算', confidence: 'Medium',
     reasoning: '九维加权合成；每一维可展开到证据。不是黑盒。',
-    supports: 'Decision: 推进 Highbay 机会',
+    supports: '决策：推进工矿灯机会',
   },
   {
-    id: 'tospo-capability', label: 'TOSPO capability fit', value: 'INTERNAL DATA REQUIRED', type: 'INTERNAL',
+    id: 'tospo-capability', label: 'TOSPO 能力匹配', value: '需内部数据', type: 'INTERNAL',
     source: '——', date: '——', confidence: '—',
     reasoning: '需要得邦内部 BOM 成本、产线兼容度、散热平台复用率数据后才能评分。缺数据不假装。',
-    supports: 'Gate: Cost / Engineering validation',
+    supports: '闸门：成本 / 工程验证',
   },
   {
-    id: 'lab-proof', label: 'Claimed vs measured — white-label', value: '标称 160 → 实测 ≈112 lm/W', type: 'CONFIRMED',
-    source: 'TOSPO Lab teardown & integrating-sphere test（演示数据）', date: 'Tested 2026-08', confidence: 'High',
+    id: 'lab-proof', label: '标称 vs 实测 — 白牌', value: '标称 160 → 实测 ≈112 lm/W', type: 'CONFIRMED',
+    source: 'TOSPO 实验室拆解 & 积分球测试（演示数据，无外部链接）', date: '2026-08 实测', confidence: 'High',
     reasoning: '购样 3 款热销白牌送实验室：标称普遍虚高 30%+。虚标成风 = "可信品牌"位置空缺，实测报告可直接变成详情页证据。',
-    supports: 'Decision: 以"真实标称 + 实测背书"建立信任差异',
+    supports: '决策：以"真实标称 + 实测背书"建立信任差异',
   },
   {
-    id: 'eve-assets', label: 'EVE transferable assets', value: 'TISI 主体 · 电商头部 · 本地仓', type: 'CONFIRMED',
-    source: '公开渠道观察 + EVE 官网', date: 'Observed 2026-08', confidence: 'Medium',
+    id: 'eve-assets', label: 'EVE 可迁移资产', value: 'TISI 主体 · 电商头部 · 本地仓', type: 'CONFIRMED',
+    source: '公开渠道观察 + EVE 官网', url: 'https://www.evelighting.com/', date: '2026-08 观察', confidence: 'Medium',
     reasoning: 'TISI 持证须本地注册公司（EVE 具备）；电商头部心智可迁移到"可信专业层"；本地仓缩短交付。',
-    supports: 'Decision: 窗口的门票 EVE 已经拿在手里',
+    supports: '决策：窗口的门票 EVE 已经拿在手里',
   },
   {
-    id: 'order-flow', label: 'Professional orders are flowing elsewhere', value: 'BEC / LAMPTAN / Philips', type: 'INFERENCE',
-    source: '渠道货架与项目中标观察', date: 'Compiled 2026-08', confidence: 'Medium',
+    id: 'order-flow', label: '专业订单正在流向别处', value: 'BEC / LAMPTAN / Philips', type: 'INFERENCE',
+    source: '渠道货架与项目中标观察', date: '2026-08 汇编', confidence: 'Medium',
     reasoning: '专业层订单正在被有 130+ lm/W、PF≥0.9 产品线的品牌接走；EVE 缺席意味着每个项目季都在失血。',
-    supports: 'Decision: WHY NOW — 窗口不会一直开着',
+    supports: '决策：为什么是现在 — 窗口不会一直开着',
   },
   {
-    id: 'market-size', label: 'Thailand highbay demand pool', value: 'Growing (range withheld)', type: 'ESTIMATE',
-    source: 'Warehouse construction pipeline & industrial LED import signals', date: 'Compiled 2026-08', confidence: 'Low',
+    id: 'market-size', label: '泰国工矿灯需求池', value: '增长中（区间暂不给出）', type: 'ESTIMATE',
+    source: '仓储建设管线 & 工业 LED 进口信号', date: '2026-08 汇编', confidence: 'Low',
     reasoning: '方向性判断：厂房/仓储建设持续；不给精确规模数字，因为公开数据不足以支撑。',
-    supports: 'Context only — 不作为决策依据',
+    supports: '仅作背景 — 不作为决策依据',
   },
 ]
 
@@ -152,12 +153,12 @@ export const evById = (id: string) => EVIDENCE.find((e) => e.id === id)
 export type Brand = 'EVE' | 'BEC' | 'LAMPTAN' | 'Philips' | 'RACER' | 'White-label'
 
 export const BRAND_META: Record<Brand, { color: string; shelf: string }> = {
-  EVE:          { color: '#B08D3E', shelf: '电商主流层强者，专业层缺席' },
-  BEC:          { color: '#5D80D9', shelf: '本土专业大牌，฿2,300–2,600' },
-  LAMPTAN:      { color: '#7A8F6A', shelf: '本土专业性价比锚点 ฿2,190' },
-  Philips:      { color: '#B07D4F', shelf: '国际高端标杆，฿3,500+' },
-  RACER:        { color: '#4E6E6A', shelf: '专业高性能小众玩家' },
-  'White-label':{ color: '#8A8680', shelf: '低价虚标，无信任资产' },
+  EVE:          { color: '#0067A5', shelf: '电商主流层强者，专业层缺席' },
+  BEC:          { color: '#4E86AE', shelf: '本土专业大牌，฿2,300–2,600' },
+  LAMPTAN:      { color: '#7FA6C4', shelf: '本土专业性价比锚点 ฿2,190' },
+  Philips:      { color: '#0A2233', shelf: '国际高端标杆，฿3,500+' },
+  RACER:        { color: '#2E6FA3', shelf: '专业高性能小众玩家' },
+  'White-label':{ color: '#8A969E', shelf: '低价虚标，无信任资产' },
 }
 
 export interface SKU {
@@ -184,9 +185,9 @@ export const OPPORTUNITY_ZONE = { priceMin: 1800, priceMax: 2300, effMin: 140, e
 // ─── Spec landscape ─────────────────────────────────────────────────────────
 
 export const SPEC_TIERS = [
-  { tier: 'VALUE / MAINSTREAM', eff: '90–110 lm/W', note: '白牌与电商款主战场，PF 0.5–0.7', width: 100, ev: 'eve-efficacy' },
-  { tier: 'PROFESSIONAL',       eff: '130–160+ lm/W', note: '工程与分销渠道要求，PF ≥ 0.9', width: 58, ev: 'prof-band' },
-  { tier: 'PREMIUM',            eff: '160+ lm/W + 智能', note: 'DALI/传感/平台化，项目标', width: 30, ev: 'philips-pos' },
+  { tier: '价值 / 主流层', eff: '90–110 lm/W', note: '白牌与电商款主战场，PF 0.5–0.7', width: 100, ev: 'eve-efficacy' },
+  { tier: '专业层',         eff: '130–160+ lm/W', note: '工程与分销渠道要求，PF ≥ 0.9', width: 58, ev: 'prof-band' },
+  { tier: '高端层',         eff: '160+ lm/W + 智能', note: 'DALI/传感/平台化，项目标', width: 30, ev: 'philips-pos' },
 ]
 
 // ─── Customer gap map ───────────────────────────────────────────────────────
@@ -200,11 +201,11 @@ export interface GapRow {
 }
 
 export const GAP_ROWS: GapRow[] = [
-  { dim: 'Efficacy', unit: 'lm/W', eve: 90, eveLabel: '90', bench: 160, benchLabel: '130–160+', max: 180, gap: 'PERFORMANCE GAP', gapType: 'GAP', ev: 'eve-efficacy' },
-  { dim: 'Power factor', unit: 'PF', eve: 0.5, eveLabel: '0.5', bench: 0.95, benchLabel: '≥ 0.9', max: 1, gap: 'ELECTRICAL GAP', gapType: 'GAP', ev: 'eve-pf' },
-  { dim: 'Warranty', unit: 'years', eve: 2, eveLabel: '2Y', bench: 5, benchLabel: '3–5Y', max: 6, gap: 'TRUST GAP', gapType: 'GAP', ev: 'warranty-bench' },
-  { dim: 'Price position', unit: '฿', eve: 1490, eveLabel: '฿1,290–1,690', bench: 2040, benchLabel: '฿1,890–2,190', max: 2600, gap: 'HEADROOM — 可上探', gapType: 'HEADROOM', ev: 'price-window' },
-  { dim: 'Channel', unit: '', eve: 1, eveLabel: '电商强', bench: 2, benchLabel: '工程+分销', max: 2.4, gap: 'FIT — 需双轨', gapType: 'FIT', ev: 'channel-fit' },
+  { dim: '光效', unit: 'lm/W', eve: 90, eveLabel: '90', bench: 160, benchLabel: '130–160+', max: 180, gap: '性能差距', gapType: 'GAP', ev: 'eve-efficacy' },
+  { dim: '功率因数', unit: 'PF', eve: 0.5, eveLabel: '0.5', bench: 0.95, benchLabel: '≥ 0.9', max: 1, gap: '电气差距', gapType: 'GAP', ev: 'eve-pf' },
+  { dim: '质保', unit: '年', eve: 2, eveLabel: '2Y', bench: 5, benchLabel: '3–5Y', max: 6, gap: '信任差距', gapType: 'GAP', ev: 'warranty-bench' },
+  { dim: '价格位', unit: '฿', eve: 1490, eveLabel: '฿1,290–1,690', bench: 2040, benchLabel: '฿1,890–2,190', max: 2600, gap: 'HEADROOM — 可上探', gapType: 'HEADROOM', ev: 'price-window' },
+  { dim: '渠道', unit: '', eve: 1, eveLabel: '电商强', bench: 2, benchLabel: '工程+分销', max: 2.4, gap: 'FIT — 需双轨', gapType: 'FIT', ev: 'channel-fit' },
 ]
 
 // ─── Opportunity engine ─────────────────────────────────────────────────────
@@ -212,25 +213,25 @@ export const GAP_ROWS: GapRow[] = [
 export interface ScoreDim { dim: string; score: number | null; note: string; evs: string[] }
 
 export const SCORE_DIMS: ScoreDim[] = [
-  { dim: 'Market Demand',     score: 8.2,  note: '厂房/仓储建设持续，专业款需求上行', evs: ['market-size'] },
-  { dim: 'Customer Gap',      score: 9.0,  note: 'EVE 90 → 160 是清晰可见的代差', evs: ['eve-efficacy', 'eve-pf'] },
-  { dim: 'Price Window',      score: 8.4,  note: '฿1,800–2,300 × 140–165 lm/W 空位', evs: ['price-window'] },
-  { dim: 'Competition',       score: 7.6,  note: 'Philips 太贵，白牌不可信，中间缺可信玩家', evs: ['philips-pos', 'whitelabel-claims'] },
-  { dim: 'Differentiation',   score: 8.8,  note: '真实标称 + 实测证据链 = 白牌无法复制', evs: ['whitelabel-claims'] },
-  { dim: 'Margin Potential',  score: 7.9,  note: '专业层毛利结构优于电商主流层', evs: ['price-window'] },
-  { dim: 'Certification',     score: 8.1,  note: 'TISI 强制，EVE 本地主体可持证', evs: ['tisi'] },
-  { dim: 'Development Risk',  score: 7.2,  note: '160 lm/W 热设计是关键风险，需工程验证', evs: ['prof-band'] },
-  { dim: 'TOSPO Capability',  score: null, note: 'INTERNAL DATA REQUIRED — 需 BOM / 产线 / 散热平台数据', evs: ['tospo-capability'] },
+  { dim: '市场需求',        score: 8.2,  note: '厂房/仓储建设持续，专业款需求上行', evs: ['market-size'] },
+  { dim: '客户差距',        score: 9.0,  note: 'EVE 90 → 160 是清晰可见的代差', evs: ['eve-efficacy', 'eve-pf'] },
+  { dim: '价格窗口',        score: 8.4,  note: '฿1,800–2,300 × 140–165 lm/W 空位', evs: ['price-window'] },
+  { dim: '竞争格局',        score: 7.6,  note: 'Philips 太贵，白牌不可信，中间缺可信玩家', evs: ['philips-pos', 'whitelabel-claims'] },
+  { dim: '差异化',          score: 8.8,  note: '真实标称 + 实测证据链 = 白牌无法复制', evs: ['whitelabel-claims'] },
+  { dim: '毛利潜力',        score: 7.9,  note: '专业层毛利结构优于电商主流层', evs: ['price-window'] },
+  { dim: '认证',            score: 8.1,  note: 'TISI 强制，EVE 本地主体可持证', evs: ['tisi'] },
+  { dim: '开发风险',        score: 7.2,  note: '160 lm/W 热设计是关键风险，需工程验证', evs: ['prof-band'] },
+  { dim: 'TOSPO 能力匹配',  score: null, note: '需内部数据 — BOM / 产线 / 散热平台数据后才能评分', evs: ['tospo-capability'] },
 ]
 
 export const OPPORTUNITY_SCORE = 82
 
 export const OPPORTUNITY_WINDOW = [
-  { k: 'SPEC',        v: '150W · 160 lm/W · PF≥0.95 · IP65 · 90° · 3–5Y', ev: 'target-160' },
-  { k: 'PRICE',       v: '฿1,890–2,190 retail',                          ev: 'target-price' },
-  { k: 'DESIGN',      v: 'Radial-fin UFO, professional CMF',              ev: 'prof-band' },
-  { k: 'CHANNEL',     v: 'Project + Distributor',                         ev: 'channel-fit' },
-  { k: 'POSITIONING', v: 'Mainstream Professional',                       ev: 'price-window' },
+  { k: '规格',   v: '150W · 160 lm/W · PF≥0.95 · IP65 · 90° · 3–5Y', ev: 'target-160' },
+  { k: '价格',   v: '฿1,890–2,190 零售',                            ev: 'target-price' },
+  { k: '设计',   v: '放射鳍片 UFO · 专业 CMF',                      ev: 'prof-band' },
+  { k: '渠道',   v: '项目 + 分销',                                  ev: 'channel-fit' },
+  { k: '定位',   v: '主流专业层',                                   ev: 'price-window' },
 ]
 
 // ─── Target product definition (STRATEGY) ───────────────────────────────────
@@ -238,21 +239,21 @@ export const OPPORTUNITY_WINDOW = [
 export interface SpecRow { key: string; param: string; value: string; ev: string; why: string[] }
 
 export const TARGET_SPECS: SpecRow[] = [
-  { key: 'power', param: 'POWER', value: '150W', ev: 'target-160',
-    why: ['厂房主流层高 8–12m，100–200W 为主力功率段', '150W × 160 lm/W = 24,000 lm 覆盖主流单灯位', '200W 档留给平台延展（Concept C）'] },
-  { key: 'efficacy', param: 'EFFICACY', value: '160 lm/W', ev: 'prof-band',
-    why: ['Professional 层定义为 130–160+ lm/W', '160 = 层内上沿，对 LAMPTAN 130 / BEC 135 形成可感知代差', 'EVE 现状 90 —— 跨层而非改良'] },
-  { key: 'lumen', param: 'LUMEN', value: '24,000 lm', ev: 'target-160',
+  { key: 'power', param: '功率', value: '150W', ev: 'target-160',
+    why: ['厂房主流层高 8–12m，100–200W 为主力功率段', '150W × 160 lm/W = 24,000 lm 覆盖主流单灯位', '200W 档留给平台延展（方案 C）'] },
+  { key: 'efficacy', param: '光效', value: '160 lm/W', ev: 'prof-band',
+    why: ['专业层定义为 130–160+ lm/W', '160 = 层内上沿，对 LAMPTAN 130 / BEC 135 形成可感知代差', 'EVE 现状 90 —— 跨层而非改良'] },
+  { key: 'lumen', param: '光通量', value: '24,000 lm', ev: 'target-160',
     why: ['= 150W × 160 lm/W，派生值不单独决策', '满足 8–12m 层高照度设计惯例'] },
-  { key: 'pf', param: 'POWER FACTOR', value: '≥ 0.95', ev: 'eve-pf',
+  { key: 'pf', param: '功率因数', value: '≥ 0.95', ev: 'eve-pf',
     why: ['工业电网与项目标普遍要求 PF ≥ 0.9', 'EVE 现状 0.5 —— 电气差距必须一次补齐', '≥0.95 留出测试裕量'] },
-  { key: 'ip', param: 'INGRESS', value: 'IP65', ev: 'tisi',
+  { key: 'ip', param: '防护等级', value: 'IP65', ev: 'tisi',
     why: ['泰国高温高湿 + 粉尘厂房环境', '专业层准入底线'] },
-  { key: 'beam', param: 'BEAM', value: '90°', ev: 'price-window',
+  { key: 'beam', param: '配光角度', value: '90°', ev: 'price-window',
     why: ['90° 覆盖厂房主流布灯间距', '60°/120° 作为配置项而非主卖点'] },
-  { key: 'warranty', param: 'WARRANTY', value: '3–5 Y', ev: 'warranty-bench',
+  { key: 'warranty', param: '质保', value: '3–5 Y', ev: 'warranty-bench',
     why: ['Philips 5Y / BEC 3Y 建立了专业层信任基准', 'EVE 现状约 2Y，差距即信任差距'] },
-  { key: 'retail', param: 'RETAIL', value: '฿1,890–2,190', ev: 'target-price',
+  { key: 'retail', param: '零售价', value: '฿1,890–2,190', ev: 'target-price',
     why: ['上沿贴住 LAMPTAN ฿2,190 可见锚点', '下沿与白牌 ฿1,2xx 拉开 ≥฿600 信任距离', '低于 BEC 同性能档 ฿2,450'] },
 ]
 
@@ -267,22 +268,22 @@ export interface Concept {
 
 export const CONCEPTS: Concept[] = [
   { id: 'A', name: 'CORE', strategy: '低风险 · 成熟结构 · 成本效率 · 易制造',
-    tagline: 'The safe volume play.',
+    tagline: '稳健的走量选择。',
     traits: ['成熟平台复用', '最少新开模', '成本最优', '最快上市'] },
   { id: 'B', name: 'HERO', strategy: '性能 × 成本 × 设计 × 制造风险 × 延展性 最平衡', recommended: true,
-    tagline: 'The next-gen主力 SKU.',
-    traits: ['Radial-fin 散热', '160 lm/W 满血', '家族视觉锚点', '平台化基础'] },
+    tagline: '下一代主力 SKU。',
+    traits: ['放射鳍片散热', '160 lm/W 满血', '家族视觉锚点', '平台化基础'] },
   { id: 'C', name: 'FUTURE', strategy: '平台化：为未来衍生 SKU 做平台',
-    tagline: 'Platform thinking.',
-    traits: ['Sensor Ready', 'DALI / Smart Interface', 'Replaceable Optics', 'Modular Driver'] },
+    tagline: '平台化思维。',
+    traits: ['传感器预留', 'DALI / 智能接口', '可替换光学件', '模块化驱动'] },
 ]
 
 export const WHY_B_WINS = [
-  { k: 'PERFORMANCE', v: '160 lm/W 满血达成 Professional 上沿，与 A 同平台验证' },
-  { k: 'COST',        v: '比 C 少 4 组模块件，BOM 与装配成本落在 Scenario 内' },
-  { k: 'DESIGN',      v: 'Radial fin + Optical Ring 建立可识别的家族语言' },
-  { k: 'MFG RISK',    v: '热路径经 Engineering Intent 验证可行，新开模仅光学环' },
-  { k: 'EXTENSIBILITY', v: 'Driver Cap 预留 Sensor/DALI 位 —— 通往 C 的桥' },
+  { k: '性能',   v: '160 lm/W 满血达成专业层上沿，与 A 同平台验证' },
+  { k: '成本',   v: '比 C 少 4 组模块件，BOM 与装配成本落在商业情景内' },
+  { k: '设计',   v: '放射鳍片 + 光学环建立可识别的家族语言' },
+  { k: '制造风险', v: '热路径经工程意图验证可行，新开模仅光学环' },
+  { k: '延展性', v: '驱动盖预留 Sensor/DALI 位 —— 通往 C 的桥' },
 ]
 
 // ─── WHY DOES IT LOOK LIKE THIS — MARKET → REQUIREMENT → ENGINEERING → FORM ─
@@ -291,23 +292,23 @@ export interface Hotspot { id: string; label: string; x: number; y: number; chai
 
 // NOTE: y% calibrated for the LIT viewBox (400×472 — product + beam cone).
 export const HOTSPOTS: Hotspot[] = [
-  { id: 'heatsink', label: 'HEAT SINK', x: 50, y: 32,
-    chain: ['市场要更高专业光效（130–160+ lm/W）', '必须降低长期结温，保证光效维持率', '更短热路径 + 更大有效散热面积', 'Radial Fin 放射鳍片结构'] },
-  { id: 'driver', label: 'DRIVER', x: 50, y: 13,
-    chain: ['项目与工业电网要求 PF ≥ 0.9', '高效率驱动 + 低 THD + 防雷击 SPD', '独立驱动腔，与光源腔热隔离', '顶部 Driver Cap 几何 —— 家族特征'] },
-  { id: 'optics', label: 'OPTICS', x: 50, y: 59,
-    chain: ['厂房主流布灯间距需要 90° 配光', '可替换光学件覆盖 60°/90°/120°', '透镜阵列 + 防眩环，UGR 控制', '底部 Optical Ring —— 家族视觉锚点'] },
-  { id: 'housing', label: 'HOUSING', x: 84, y: 40,
+  { id: 'heatsink', label: '散热', x: 50, y: 32,
+    chain: ['市场要更高专业光效（130–160+ lm/W）', '必须降低长期结温，保证光效维持率', '更短热路径 + 更大有效散热面积', '放射鳍片结构'] },
+  { id: 'driver', label: '驱动', x: 50, y: 13,
+    chain: ['项目与工业电网要求 PF ≥ 0.9', '高效率驱动 + 低 THD + 防雷击 SPD', '独立驱动腔，与光源腔热隔离', '顶部驱动盖几何 —— 家族特征'] },
+  { id: 'optics', label: '光学', x: 50, y: 59,
+    chain: ['厂房主流布灯间距需要 90° 配光', '可替换光学件覆盖 60°/90°/120°', '透镜阵列 + 防眩环，UGR 控制', '底部光学环 —— 家族视觉锚点'] },
+  { id: 'housing', label: '壳体', x: 84, y: 40,
     chain: ['高温高湿 + 粉尘厂房', 'IP65 全密封 + 防凝露呼吸阀', '压铸铝壳体 + 密封圈压缩量控制', '一体化碟形壳体'] },
-  { id: 'mounting', label: 'MOUNTING', x: 50, y: 4,
-    chain: ['工程安装效率决定人工成本', '单人可操作的吊装接口', '吊钩 + 安全绳双保险结构', 'Hook Interface —— 家族统一接口'] },
-  { id: 'cable', label: 'CABLE ENTRY', x: 88, y: 22,
-    chain: ['现场接线是漏水第一失效点', '防水格兰头 + 应力消除', '侧进线独立于密封腔', '侧向 Cable Gland'] },
-  { id: 'identity', label: 'VISUAL IDENTITY', x: 16, y: 40,
-    chain: ['白牌不可信的市场需要"可识别的专业"', '一眼可辨的家族化语言', 'Fin Rhythm / Edge Language / CMF 统一', '哑黑壳体 + 黄铜色光学环'] },
+  { id: 'mounting', label: '吊装', x: 50, y: 4,
+    chain: ['工程安装效率决定人工成本', '单人可操作的吊装接口', '吊钩 + 安全绳双保险结构', '吊钩接口 —— 家族统一接口'] },
+  { id: 'cable', label: '进线', x: 88, y: 22,
+    chain: ['现场接线是漏水第一失效点', '防水格兰头 + 应力消除', '侧进线独立于密封腔', '侧向防水格兰头'] },
+  { id: 'identity', label: '视觉识别', x: 16, y: 40,
+    chain: ['白牌不可信的市场需要"可识别的专业"', '一眼可辨的家族化语言', '鳍片韵律 / 边缘语言 / CMF 统一', '哑黑壳体 + 品牌蓝光学环'] },
 ]
 
-export const CHAIN_STAGES = ['MARKET', 'REQUIREMENT', 'ENGINEERING', 'FORM'] as const
+export const CHAIN_STAGES = ['市场', '需求', '工程', '形态'] as const
 
 // ─── Configurator & derived commercial model ────────────────────────────────
 
@@ -370,12 +371,12 @@ export interface RiskFlag { id: string; text: string; level: 'warn' | 'block' }
 
 export function risksOf(c: Config): RiskFlag[] {
   const r: RiskFlag[] = []
-  if (c.power === 200) r.push({ id: 'thermal', level: 'warn', text: '200W @160 lm/W：温升裕量收紧，需散热验证（Engineering Gate）' })
+  if (c.power === 200) r.push({ id: 'thermal', level: 'warn', text: '200W @160 lm/W：温升裕量收紧，需散热验证（工程闸门）' })
   if (c.power === 100) r.push({ id: 'lumen', level: 'warn', text: '100W 档光通量 16,000 lm，定位偏向补充 SKU 而非主力' })
-  if (c.control === 'DALI') r.push({ id: 'dali', level: 'warn', text: 'DALI 驱动成本 +฿85，且要求项目渠道能力 —— 建议归 Concept C' })
+  if (c.control === 'DALI') r.push({ id: 'dali', level: 'warn', text: 'DALI 驱动成本 +฿85，且要求项目渠道能力 —— 建议归方案 C' })
   if (c.beam === 120) r.push({ id: 'beam', level: 'warn', text: '120° 配光需要新光学件（NRE 模具投入）' })
-  if (c.warranty === 3) r.push({ id: 'warranty', level: 'warn', text: '3Y 低于 TARGET 5Y —— 信任差异减弱（专业层基准 Philips 5Y）' })
-  if (c.cct === 4000) r.push({ id: 'cct', level: 'warn', text: '4000K 光效约 −3 lm/W，Spec 标注需说明' })
+  if (c.warranty === 3) r.push({ id: 'warranty', level: 'warn', text: '3Y 低于目标 5Y —— 信任差异减弱（专业层基准 Philips 5Y）' })
+  if (c.cct === 4000) r.push({ id: 'cct', level: 'warn', text: '4000K 光效约 −3 lm/W，规格标注需说明' })
   return r
 }
 
@@ -384,13 +385,13 @@ export const bandOf = (c: Config): [number, number] => RETAIL_BANDS[c.power]
 // ─── Engineering intent ─────────────────────────────────────────────────────
 
 export const ENGINEERING_INTENTS = [
-  { id: 'thermal',  t: 'Thermal Path',        d: '光源腔 → 放射鳍片短热路径；目标结温裕量 ≥ 15°C', hs: 'heatsink' },
-  { id: 'driver',   t: 'Driver Architecture', d: '独立驱动腔热隔离；PF ≥ 0.95 / THD < 10% / SPD 4kV', hs: 'driver' },
-  { id: 'optical',  t: 'Optical Architecture',d: '透镜阵列 60°/90°/120° 可替换；防眩环 UGR<25', hs: 'optics' },
-  { id: 'ip',       t: 'IP Sealing',          d: 'IP65：密封圈压缩量 + 防凝露呼吸阀', hs: 'housing' },
-  { id: 'cable',    t: 'Cable Entry',         d: '侧进线防水格兰头，独立于主密封腔', hs: 'cable' },
-  { id: 'mount',    t: 'Mounting',            d: '吊钩 + 安全绳双保险，单人可安装', hs: 'mounting' },
-  { id: 'service',  t: 'Serviceability',      d: '驱动腔可独立更换；光学环可拆换', hs: 'driver' },
+  { id: 'thermal',  t: '热路径',   d: '光源腔 → 放射鳍片短热路径；目标结温裕量 ≥ 15°C', hs: 'heatsink' },
+  { id: 'driver',   t: '驱动架构', d: '独立驱动腔热隔离；PF ≥ 0.95 / THD < 10% / SPD 4kV', hs: 'driver' },
+  { id: 'optical',  t: '光学架构', d: '透镜阵列 60°/90°/120° 可替换；防眩环 UGR<25', hs: 'optics' },
+  { id: 'ip',       t: 'IP 密封',  d: 'IP65：密封圈压缩量 + 防凝露呼吸阀', hs: 'housing' },
+  { id: 'cable',    t: '进线',     d: '侧进线防水格兰头，独立于主密封腔', hs: 'cable' },
+  { id: 'mount',    t: '吊装',     d: '吊钩 + 安全绳双保险，单人可安装', hs: 'mounting' },
+  { id: 'service',  t: '可维护性', d: '驱动腔可独立更换；光学环可拆换', hs: 'driver' },
 ]
 
 // ─── Project gates ──────────────────────────────────────────────────────────
@@ -398,23 +399,23 @@ export const ENGINEERING_INTENTS = [
 export interface Gate { id: string; name: string; owner: string; status: 'done' | 'active' | 'pending'; note?: string }
 
 export const GATES: Gate[] = [
-  { id: 'g1', name: 'Market Validation',     owner: 'TOSPO MI',   status: 'done',   note: 'Price×Perf / Spec / Channel 已建立' },
-  { id: 'g2', name: 'Customer Validation',   owner: 'EVE + TOSPO', status: 'active', note: 'Gap Map 待 EVE 确认' },
-  { id: 'g3', name: 'Cost Validation',       owner: 'TOSPO Cost', status: 'pending', note: '需 BOM 成本库（INTERNAL）' },
-  { id: 'g4', name: 'Engineering Validation',owner: 'TOSPO ENG',  status: 'pending', note: '160 lm/W 热设计验证' },
-  { id: 'g5', name: 'Certification',         owner: 'EVE (TISI)', status: 'pending', note: 'TISI 强制；EVE 本地持证' },
-  { id: 'g6', name: 'Prototype',             owner: 'TOSPO ENG',  status: 'pending' },
-  { id: 'g7', name: 'Sample',                owner: 'TOSPO',      status: 'pending' },
-  { id: 'g8', name: 'Quotation',             owner: 'TOSPO Sales',status: 'pending' },
-  { id: 'g9', name: 'Project Launch',        owner: 'Joint',      status: 'pending' },
+  { id: 'g1', name: '市场验证', owner: 'TOSPO MI',   status: 'done',   note: '价格×性能 / 规格 / 渠道已建立' },
+  { id: 'g2', name: '客户验证', owner: 'EVE + TOSPO', status: 'active', note: '差距地图待 EVE 确认' },
+  { id: 'g3', name: '成本验证', owner: 'TOSPO Cost', status: 'pending', note: '需 BOM 成本库（内部数据）' },
+  { id: 'g4', name: '工程验证', owner: 'TOSPO ENG',  status: 'pending', note: '160 lm/W 热设计验证' },
+  { id: 'g5', name: '认证',     owner: 'EVE (TISI)', status: 'pending', note: 'TISI 强制；EVE 本地持证' },
+  { id: 'g6', name: '原型',     owner: 'TOSPO ENG',  status: 'pending' },
+  { id: 'g7', name: '样品',     owner: 'TOSPO',      status: 'pending' },
+  { id: 'g8', name: '报价',     owner: 'TOSPO Sales',status: 'pending' },
+  { id: 'g9', name: '项目启动', owner: 'Joint',      status: 'pending' },
 ]
 
 // ─── Cockpit decisions ──────────────────────────────────────────────────────
 
 export const RECENT_DECISIONS = [
-  { ok: true as const, what: 'TARGET 160 lm/W', because: 'prof-band' },
-  { ok: true as const, what: 'TARGET ฿1,890–2,190', because: 'price-window' },
-  { ok: false as const, what: 'Warranty 5Y', because: '待 Commercial 场景验证' },
+  { ok: true as const, what: '目标 160 lm/W', because: 'prof-band' },
+  { ok: true as const, what: '目标 ฿1,890–2,190', because: 'price-window' },
+  { ok: false as const, what: '质保 5Y', because: '待商业场景验证' },
 ]
 
 // ─── PK BENCH — 易车式品牌对决 ──────────────────────────────────────────────
@@ -551,7 +552,7 @@ export const PRODUCTS: ProductRec[] = [
     role: '走量入门款', roleEn: 'VOLUME SKU',
     positioning: '用现有电商客群低门槛进入专业层',
     config: { power: 100, cct: 5000, beam: 90, control: 'ON/OFF', warranty: 3 },
-    whyThis: ['成熟平台复用，最快上市', '฿1,490–1,690 衔接 EVE 现有价格带', '为 HERO 款引流与攒评价'],
+    whyThis: ['成熟平台复用，最快上市', '฿1,490–1,690 衔接 EVE 现有价格带', '为主力款引流与攒评价'],
     evs: ['eve-efficacy', 'price-window'],
   },
   {
@@ -559,7 +560,7 @@ export const PRODUCTS: ProductRec[] = [
     role: '项目平台款', roleEn: 'PLATFORM SKU',
     positioning: 'Sensor/DALI Ready，为衍生 SKU 做平台',
     config: { power: 200, cct: 5000, beam: 90, control: 'DALI', warranty: 5 },
-    whyThis: ['项目渠道与智能楼宇标案的门票', 'Modular Driver + Replaceable Optics', 'HERO 验证热平台后再放量'],
+    whyThis: ['项目渠道与智能楼宇标案的门票', '模块化驱动 + 可替换光学件', '主力款验证热平台后再放量'],
     evs: ['prof-band', 'order-flow'],
   },
 ]
@@ -579,28 +580,28 @@ export const KILLS: { what: string; why: string }[] = [
 
 // ─── Story acts v3 — 5 幕，每个事实只讲一次 ─────────────────────────────────
 // ANSWER → WHY NOW → PROOF → VERDICT → NEXT.
-// 规格表 / 形态解剖 / 瀑布账不进故事线，它们的家在 PRODUCT / PLAN。
+// 规格表 / 形态解剖 / 瀑布账不进故事线，它们的家在 产品 / 方案。
 
 export type ActKind = 'answer' | 'whynow' | 'proof' | 'verdict' | 'next'
 
 export interface Act { n: number; kind: ActKind; dark: boolean; kicker: string; title: string; body?: string; ev?: string }
 
 export const ACTS: Act[] = [
-  { n: 1, kind: 'answer',  dark: true,  kicker: 'THE ANSWER',   title: 'EVE 的下一代，我们已经替你想好了' },
-  { n: 2, kind: 'whynow',  dark: false, kicker: 'WHY NOW',      title: '品类在升级，你不在场', body: '每一个项目季，专业层订单都在流向有 130+ lm/W 产品线的品牌。', ev: 'order-flow' },
-  { n: 3, kind: 'proof',   dark: true,  kicker: 'THE PROOF',    title: '空位是真的，标称是假的', ev: 'lab-proof' },
-  { n: 4, kind: 'verdict', dark: false, kicker: 'HEAD-TO-HEAD', title: '同档对决，胜负摆在桌面', ev: 'lab-proof' },
-  { n: 5, kind: 'next',    dark: false, kicker: 'NEXT STEP',    title: '选一款，4 周出样' },
+  { n: 1, kind: 'answer',  dark: true,  kicker: '答案',         title: 'EVE 的下一代，我们已经替你想好了' },
+  { n: 2, kind: 'whynow',  dark: false, kicker: '为什么是现在', title: '品类在升级，你不在场', body: '每一个项目季，专业层订单都在流向有 130+ lm/W 产品线的品牌。', ev: 'order-flow' },
+  { n: 3, kind: 'proof',   dark: true,  kicker: '证据',         title: '空位是真的，标称是假的', ev: 'lab-proof' },
+  { n: 4, kind: 'verdict', dark: false, kicker: '正面对决',     title: '同档对决，胜负摆在桌面', ev: 'lab-proof' },
+  { n: 5, kind: 'next',    dark: false, kicker: '下一步',       title: '选一款，4 周出样' },
 ]
 
 // ─── Misc ───────────────────────────────────────────────────────────────────
 
 export const PROJECT = {
   customer: 'EVE Lighting',
-  market: 'Thailand',
-  category: 'Highbay',
+  market: '泰国',
+  category: '工矿灯 Highbay',
   title: 'NEXT GEN HIGHBAY',
-  stage: 'Product Definition',
+  stage: '产品定义阶段',
   owner: 'TOSPO PM',
 }
 

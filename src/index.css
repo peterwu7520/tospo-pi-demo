@@ -3,36 +3,37 @@
 @tailwind utilities;
 
 /* ─────────────────────────────────────────────────────────────
-   DESIGN TOKENS — Premium Industrial Intelligence
-   Two registers: ANALYSIS (warm paper) / STUDIO (warm black).
-   Zero-hue base; material contrast over color; brass as the only
-   functional accent; evidence-type colors kept muted & warm.
+   DESIGN TOKENS — TOSPO Blue/White Industrial Intelligence
+   Two registers: ANALYSIS (cool paper) / STUDIO (deep navy).
+   TOSPO blue (#0067A5) is the only functional accent; risk red
+   (#C8102E) reserved for risk/negative semantics only.
    ───────────────────────────────────────────────────────────── */
 
 :root {
-  --paper: #F5F3EE;
-  --paper-2: #ECE9E1;
-  --ink: #14130F;
-  --graphite: #6F6C64;
-  --hairline: rgba(20, 19, 15, 0.16);
-  --hairline-soft: rgba(20, 19, 15, 0.08);
+  --paper: #F4F8FB;
+  --paper-2: #E8F0F6;
+  --ink: #0A2233;
+  --graphite: #56707F;
+  --hairline: rgba(10, 34, 51, 0.14);
+  --hairline-soft: rgba(10, 34, 51, 0.07);
 
-  --void: #0B0A08;
-  --void-2: #17140F;
-  --bone: #F2EFE8;
-  --stone: #9A958A;
-  --hairline-dark: rgba(242, 239, 232, 0.14);
-  --hairline-dark-soft: rgba(242, 239, 232, 0.07);
+  --void: #06283C;
+  --void-2: #0B3B57;
+  --bone: #F0F7FC;
+  --stone: #87A5B8;
+  --hairline-dark: rgba(240, 247, 252, 0.14);
+  --hairline-dark-soft: rgba(240, 247, 252, 0.07);
 
-  --brass: #B08D3E;
-  --brass-soft: rgba(176, 141, 62, 0.14);
+  --brass: #0067A5;
+  --brass-soft: rgba(0, 103, 165, 0.12);
   --risk: #C8102E;
 
   --ev-confirmed: currentColor;
-  --ev-proxy: #CAA266;
-  --ev-estimate: #B07D4F;
-  --ev-inference: #5D80D9;
-  --ev-internal: #8A8680;
+  --ev-proxy: #7FA6C4;
+  --ev-estimate: #4E86AE;
+  --ev-inference: #2E6FA3;
+  --ev-internal: #8A969E;
+  --ev-target: #0067A5;
 
   --font-disp: 'Space Grotesk', 'Helvetica Neue', Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   --font-body: 'Helvetica Neue', Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
@@ -101,7 +102,7 @@ body {
 .whybtn {
   font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.14em;
   border: 1px solid var(--hairline); background: none; color: var(--graphite);
-  padding: 3px 8px; cursor: pointer; border-radius: 2px; white-space: nowrap;
+  padding: 3px 8px; cursor: pointer; border-radius: 10px; white-space: nowrap;
   transition: color .15s, border-color .15s;
 }
 .whybtn:hover { color: var(--brass); border-color: var(--brass); }
@@ -111,7 +112,7 @@ body {
   display: inline-flex; align-items: center; gap: 8px;
   background: var(--ink); color: var(--paper); border: none; cursor: pointer;
   font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
-  padding: 12px 20px; border-radius: 2px;
+  padding: 12px 20px; border-radius: 10px;
   transition: background .2s;
 }
 .btn-ink:hover { background: var(--brass); }
@@ -122,14 +123,14 @@ body {
   display: inline-flex; align-items: center; gap: 8px;
   background: none; color: inherit; border: 1px solid var(--hairline); cursor: pointer;
   font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase;
-  padding: 9px 14px; border-radius: 2px;
+  padding: 9px 14px; border-radius: 10px;
   transition: border-color .2s, color .2s;
 }
 .btn-ghost:hover { border-color: var(--brass); color: var(--brass); }
 .on-dark .btn-ghost { border-color: var(--hairline-dark); }
 
 /* segmented control */
-.seg { display: inline-flex; border: 1px solid var(--hairline); border-radius: 2px; overflow: hidden; flex-wrap: wrap; }
+.seg { display: inline-flex; border: 1px solid var(--hairline); border-radius: 10px; overflow: hidden; flex-wrap: wrap; }
 .on-dark .seg { border-color: var(--hairline-dark); }
 .seg > button {
   font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em;
@@ -146,7 +147,7 @@ body {
 /* concept tab (A/B/C) */
 .ctab {
   border: 1px solid var(--hairline-dark); background: none; cursor: pointer;
-  color: var(--stone); padding: 10px 18px; border-radius: 2px;
+  color: var(--stone); padding: 10px 18px; border-radius: 10px;
   font-family: var(--font-mono); letter-spacing: 0.12em; font-size: 11px;
   transition: all .2s;
 }
@@ -156,7 +157,7 @@ body {
 /* ── Hotspots ── */
 .hotspot {
   position: absolute; width: 14px; height: 14px; border-radius: 999px;
-  border: 1.5px solid var(--brass); background: rgba(176,141,62,0.25);
+  border: 1.5px solid var(--brass); background: rgba(0,103,165,0.22);
   cursor: pointer; transform: translate(-50%, -50%);
   animation: breathe 2s ease-in-out infinite;
 }
@@ -187,7 +188,7 @@ body {
 .xfade.out { opacity: 0; }
 
 /* ── Bottom sheet (mobile) ── */
-.sheet-mask { position: absolute; inset: 0; background: rgba(11,10,8,.45); z-index: 40; }
+.sheet-mask { position: absolute; inset: 0; background: rgba(6,40,60,.5); z-index: 40; }
 .sheet {
   position: absolute; left: 0; right: 0; bottom: 0; z-index: 41;
   max-height: 92%; overflow-y: auto;
@@ -231,8 +232,8 @@ body {
 /* phone frame (mobile preview on desktop) */
 .phone {
   width: 393px; height: 852px; border-radius: 44px; overflow: hidden;
-  border: 10px solid #191713;
-  box-shadow: 0 30px 80px rgba(20,19,15,.35), 0 0 0 1px rgba(20,19,15,.6);
+  border: 10px solid #0A2233;
+  box-shadow: 0 30px 80px rgba(10,34,51,.35), 0 0 0 1px rgba(10,34,51,.55);
   background: var(--paper);
   position: relative;
 }

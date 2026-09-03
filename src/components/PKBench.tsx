@@ -35,7 +35,7 @@ export default function PKBench({ wide = false, compact = false }: { wide?: bool
     <div>
       {/* verdict strip */}
       <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1" style={{ marginBottom: 14 }}>
-        <span className="micro">HEAD-TO-HEAD · 同档对决</span>
+        <span className="micro">正面对决 · 同档对比</span>
         <span className="num" style={{ fontSize: 13 }}>
           <strong style={{ color: 'var(--brass)', fontSize: 18 }}>{verdict.win}</strong> 项领先
           · <strong>{verdict.tie}</strong> 项持平
@@ -101,7 +101,7 @@ export default function PKBench({ wide = false, compact = false }: { wide?: bool
             return (
               <button key={c.id} onClick={() => openEvidence(c.ev)}
                 style={{
-                  background: isWin ? 'var(--brass-soft)' : c.ours ? 'rgba(176,141,62,0.05)' : 'none',
+                  background: isWin ? 'var(--brass-soft)' : c.ours ? 'rgba(0,103,165,0.05)' : 'none',
                   border: 'none', borderLeft: c.ours ? '1px solid var(--brass)' : 'none', borderRight: c.ours ? '1px solid var(--brass)' : 'none',
                   padding: '11px 4px', cursor: 'pointer', textAlign: 'center',
                 }}>
@@ -121,7 +121,7 @@ export default function PKBench({ wide = false, compact = false }: { wide?: bool
       ))}
 
       <div className="proto-note" style={{ marginTop: 12, lineHeight: 1.8 }}>
-        我们的方案列 = 当前 CONFIGURATOR 实时配置（ONE STATE）· 虚线 = 标称存疑 · 点任何单元格看证据
+        我们的方案列 = 当前配置器实时配置（单一状态）· 虚线 = 标称存疑 · 点任何单元格看证据
       </div>
     </div>
   )

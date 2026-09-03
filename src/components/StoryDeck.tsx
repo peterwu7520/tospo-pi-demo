@@ -61,7 +61,7 @@ export default function StoryDeck({ wide = false, onExit, onOpenBrief, onOpenPK 
         <div className="flex gap-1" style={{ marginLeft: 'auto' }}>
           {ACTS.map((a, i) => <span key={a.n} className={`tick ${i <= idx ? 'on' : ''}`} />)}
         </div>
-        {onExit && <button className="whybtn" style={{ marginLeft: 12 }} onClick={onExit}>EXIT</button>}
+        {onExit && <button className="whybtn" style={{ marginLeft: 12 }} onClick={onExit}>退出</button>}
       </div>
 
       {/* act body */}
@@ -71,9 +71,9 @@ export default function StoryDeck({ wide = false, onExit, onOpenBrief, onOpenPK 
 
       {/* bottom nav */}
       <div className="flex items-center justify-between px-5" style={{ paddingBottom: 16, flex: 'none' }}>
-        <button className="btn-ghost" onClick={prev} disabled={idx === 0} style={{ opacity: idx === 0 ? 0.3 : 1 }}>← BACK</button>
-        <span className="micro" style={{ color: dark ? 'var(--stone)' : 'var(--graphite)' }}>{wide ? 'SPACE →' : 'SWIPE'}</span>
-        <button className="btn-ghost" onClick={next} disabled={idx === ACTS.length - 1} style={{ opacity: idx === ACTS.length - 1 ? 0.3 : 1 }}>NEXT →</button>
+        <button className="btn-ghost" onClick={prev} disabled={idx === 0} style={{ opacity: idx === 0 ? 0.3 : 1 }}>← 上一页</button>
+        <span className="micro" style={{ color: dark ? 'var(--stone)' : 'var(--graphite)' }}>{wide ? '空格 →' : '滑动'}</span>
+        <button className="btn-ghost" onClick={next} disabled={idx === ACTS.length - 1} style={{ opacity: idx === ACTS.length - 1 ? 0.3 : 1 }}>下一页 →</button>
       </div>
     </div>
   )
@@ -100,7 +100,7 @@ function ActBody({ act, wide, onOpenBrief, onOpenPK }: {
             {act.title}
           </div>
           <div className="micro" style={{ textAlign: 'center', color: 'var(--brass)', marginBottom: 18 }}>
-            ONE FAMILY · THREE ROLES · 其余的我们已经替你砍掉了
+            一个家族 · 三种角色 · 其余的我们已经替你砍掉了
           </div>
           <div className="flex justify-center" style={{ gap: wide ? 36 : 10 }}>
             {PRODUCTS.map((p) => {
@@ -109,7 +109,11 @@ function ActBody({ act, wide, onOpenBrief, onOpenPK }: {
               return (
                 <button key={p.id} onClick={() => pick(p)}
                   style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'inherit', textAlign: 'center', width: wide ? 240 : 118 }}>
-                  <div style={{ border: hero ? '1.5px solid var(--brass)' : '1px solid var(--hairline-dark)', padding: '10px 4px 2px', borderRadius: 3 }}>
+                  <div style={{
+                    border: hero ? '1.5px solid var(--brass)' : '1px solid var(--hairline-dark)',
+                    background: hero ? 'var(--brass-soft)' : 'rgba(240,247,252,0.05)',
+                    padding: '10px 4px 2px', borderRadius: 16,
+                  }}>
                     <ProductRender concept={p.concept} width={wide ? 200 : 100} lit beamDeg={p.config.beam} cct={p.config.cct} sensor={p.config.control === 'DALI'} />
                   </div>
                   <div className="micro" style={{ marginTop: 8, color: hero ? 'var(--brass)' : 'var(--stone)' }}>
@@ -124,7 +128,7 @@ function ActBody({ act, wide, onOpenBrief, onOpenPK }: {
             })}
           </div>
           <div className="proto-note" style={{ textAlign: 'center', color: 'var(--stone)', marginTop: 20 }}>
-            DATA BECAME PRODUCT · 往右滑，我告诉你为什么
+            数据长成了产品 · 往右滑，我告诉你为什么
           </div>
         </div>
       )
@@ -135,7 +139,7 @@ function ActBody({ act, wide, onOpenBrief, onOpenPK }: {
         <div style={{ maxWidth: 600, marginTop: wide ? 40 : 10 }}>
           <div className="disp" style={{ fontSize: wide ? 46 : 32, fontWeight: 700, marginBottom: 22 }}>{act.title}</div>
           {[
-            { k: '光效', a: '90', au: 'lm/W · EVE 现状', b: '130–160+', bu: 'lm/W · Professional 层', ev: 'eve-efficacy' },
+            { k: '光效', a: '90', au: 'lm/W · EVE 现状', b: '130–160+', bu: 'lm/W · 专业层', ev: 'eve-efficacy' },
             { k: '功率因数', a: '0.5', au: 'PF · EVE 现状', b: '≥ 0.9', bu: 'PF · 项目标底线', ev: 'eve-pf' },
             { k: '质保', a: '2Y', au: 'EVE 现状', b: '3–5Y', bu: '专业层基准', ev: 'warranty-bench' },
           ].map((r) => (
@@ -151,7 +155,7 @@ function ActBody({ act, wide, onOpenBrief, onOpenPK }: {
           <p style={{ fontSize: 14, lineHeight: 1.75, marginTop: 16, color: 'var(--graphite)' }}>{act.body}</p>
           <Ev id="order-flow"><span className="micro" style={{ color: 'var(--brass)' }}>订单正在流向谁 →</span></Ev>
           <div style={{ borderTop: '1px solid var(--hairline-soft)', marginTop: 16, paddingTop: 12, fontSize: 12.5, color: 'var(--graphite)', lineHeight: 1.6 }}>
-            <span className="micro" style={{ color: 'var(--risk)' }}>✕ NO-GO</span>
+            <span className="micro" style={{ color: 'var(--risk)' }}>✕ 不做</span>
             <span style={{ marginLeft: 8 }}>我们也替你砍掉了：{KILLS.map((k) => k.what.split('（')[0]).join(' · ')}</span>
           </div>
         </div>
@@ -236,7 +240,7 @@ function ActBody({ act, wide, onOpenBrief, onOpenPK }: {
           })}
           {(onOpenPK ?? onOpenBrief) && (
             <div style={{ marginTop: 20 }}>
-              <button className="btn-ink" style={{ padding: '13px 22px' }} onClick={onOpenPK ?? onOpenBrief}>完整对决 PK →</button>
+              <button className="btn-ink" style={{ padding: '13px 22px' }} onClick={onOpenPK ?? onOpenBrief}>看完整对决 →</button>
             </div>
           )}
         </div>
@@ -249,7 +253,7 @@ function ActBody({ act, wide, onOpenBrief, onOpenPK }: {
         <div style={{ maxWidth: 640, margin: '0 auto', textAlign: 'center' }}>
           <div className="disp" style={{ fontSize: wide ? 52 : 34, fontWeight: 700, margin: '12px 0 6px' }}>{act.title}</div>
           <p style={{ fontSize: 14, color: 'var(--graphite)', marginBottom: 20 }}>
-            选定一款 → TOSPO 输出样品与实测报告 → 通过立项闸门 → PROJECT LAUNCH。
+            选定一款 → TOSPO 输出样品与实测报告 → 通过立项闸门 → 项目启动。
           </p>
           <div className="flex justify-center flex-wrap" style={{ gap: 12 }}>
             {PRODUCTS.map((p) => (
@@ -260,10 +264,10 @@ function ActBody({ act, wide, onOpenBrief, onOpenPK }: {
           </div>
           {onOpenBrief && (
             <div style={{ marginTop: 22 }}>
-              <button className="btn-ink" style={{ padding: '14px 26px' }} onClick={onOpenBrief}>OPEN THE PLAN →</button>
+              <button className="btn-ink" style={{ padding: '14px 26px' }} onClick={onOpenBrief}>打开方案 →</button>
             </div>
           )}
-          <div className="proto-note" style={{ marginTop: 26 }}>TOSPO = PRODUCT CREATION PARTNER</div>
+          <div className="proto-note" style={{ marginTop: 26 }}>TOSPO = 产品共创伙伴</div>
         </div>
       )
   }

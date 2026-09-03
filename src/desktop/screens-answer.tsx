@@ -12,11 +12,11 @@ import type { ScreenId } from './DesktopApp'
 export function PKScreen() {
   return (
     <div>
-      <div className="micro" style={{ marginBottom: 8 }}>01 · THE ANSWER</div>
+      <div className="micro" style={{ marginBottom: 8 }}>01 · 我们的建议</div>
       <h1 className="disp" style={{ fontSize: 34, margin: '0 0 6px', fontWeight: 700 }}>我们的方案好在哪里？</h1>
       <p style={{ color: 'var(--graphite)', margin: '0 0 24px', maxWidth: 600, fontSize: 14 }}>
         易车式同档对决：逐项参数、胜负高亮、输的项如实标红。
-        我们这一列随 Configurator 实时变化 —— 客户改配置，PK 结果跟着变。
+        我们这一列随配置器实时变化 —— 客户改配置，对决结果跟着变。
       </p>
       <PKBench wide />
     </div>
@@ -34,7 +34,7 @@ export function Recommendation({ go }: { go: (s: ScreenId) => void }) {
 
   return (
     <div>
-      <div className="micro" style={{ marginBottom: 8 }}>00 · THE ANSWER</div>
+      <div className="micro" style={{ marginBottom: 8 }}>00 · 我们的建议</div>
       <h1 className="disp" style={{ fontSize: 38, lineHeight: 1.08, margin: '0 0 8px', fontWeight: 700 }}>
         我们建议 EVE 下一代做这三款。
       </h1>
@@ -53,10 +53,11 @@ export function Recommendation({ go }: { go: (s: ScreenId) => void }) {
             <div key={p.id} style={{
               border: hero ? '1.5px solid var(--brass)' : '1px solid var(--hairline)',
               background: hero ? 'var(--brass-soft)' : 'transparent',
+              borderRadius: 14, overflow: 'hidden',
               padding: '0 0 16px', display: 'flex', flexDirection: 'column',
             }}>
               <div style={{ background: 'var(--void)', padding: '18px 10px 6px', position: 'relative' }}>
-                {hero && <span className="micro" style={{ position: 'absolute', top: 10, left: 12, color: 'var(--brass)' }}>◈ FIRST PRIORITY</span>}
+                {hero && <span className="micro" style={{ position: 'absolute', top: 10, left: 12, color: 'var(--brass)' }}>◈ 第一优先</span>}
                 <ProductRender concept={p.concept} width={210} lit beamDeg={p.config.beam} cct={p.config.cct} sensor={p.config.control === 'DALI'} />
               </div>
               <div style={{ padding: '14px 16px 0' }}>
@@ -74,18 +75,18 @@ export function Recommendation({ go }: { go: (s: ScreenId) => void }) {
 
                 <div className="flex items-baseline justify-between" style={{ marginTop: 10 }}>
                   <div>
-                    <div className="micro" style={{ fontSize: 9 }}>RETAIL <EvPill t="TARGET" /></div>
+                    <div className="micro" style={{ fontSize: 9 }}>零售价 <EvPill t="TARGET" /></div>
                     <div className="disp num" style={{ fontSize: 19, fontWeight: 600 }}>{fmtTHB(band[0])}–{fmtTHB(band[1]).slice(1)}</div>
                   </div>
                   <div style={{ textAlign: 'right' }}>
-                    <div className="micro" style={{ fontSize: 9 }}>COST <EvPill t="ESTIMATE" /></div>
+                    <div className="micro" style={{ fontSize: 9 }}>成本 <EvPill t="ESTIMATE" /></div>
                     <div className="disp num" style={{ fontSize: 19, fontWeight: 600, color: 'var(--brass)' }}>≈{fmtTHB(sc.targetCost)}</div>
                   </div>
                 </div>
 
                 <details style={{ marginTop: 12, borderTop: '1px solid var(--hairline-soft)', paddingTop: 10 }}>
                   <summary style={{ listStyle: 'none', cursor: 'pointer' }}>
-                    <span className="micro" style={{ color: 'var(--brass)' }}>WHY THIS ONE ▾</span>
+                    <span className="micro" style={{ color: 'var(--brass)' }}>为什么是这款 ▾</span>
                   </summary>
                   <div style={{ paddingTop: 8 }}>
                     {p.whyThis.map((w, i) => (
@@ -115,7 +116,7 @@ export function Recommendation({ go }: { go: (s: ScreenId) => void }) {
         <SecHead n="00.2" title="我们不建议 EVE 现在做" />
         {KILLS.map((k) => (
           <div key={k.what} className="flex items-baseline gap-4" style={{ borderTop: '1px solid var(--hairline-soft)', padding: '9px 0' }}>
-            <span className="micro" style={{ color: 'var(--risk)', flex: 'none' }}>✕ NO-GO</span>
+            <span className="micro" style={{ color: 'var(--risk)', flex: 'none' }}>✕ 不做</span>
             <span style={{ width: 240, fontWeight: 500, fontSize: 13.5 }}>{k.what}</span>
             <span style={{ color: 'var(--graphite)', fontSize: 13 }}>{k.why}</span>
           </div>
@@ -136,14 +137,14 @@ export function Recommendation({ go }: { go: (s: ScreenId) => void }) {
           </div>
           <div>
             <div className="micro" style={{ marginBottom: 4, color: 'var(--ev-internal)' }}>缺数据直说</div>
-            <Ev id="tospo-capability">TOSPO Capability = INTERNAL DATA REQUIRED</Ev> —— 承认不知道，比假装知道更可信。
+            <Ev id="tospo-capability">TOSPO 能力匹配 = 需内部数据</Ev> —— 承认不知道，比假装知道更可信。
           </div>
         </div>
       </div>
 
       <div className="mt-12 flex items-center justify-between hairline-t" style={{ paddingTop: 20 }}>
         <span className="micro">想追问 "为什么是这个方向"？</span>
-        <button className="btn-ink" onClick={() => go('market')}>WHY THIS DIRECTION →</button>
+        <button className="btn-ink" onClick={() => go('market')}>为什么是这个方向 →</button>
       </div>
     </div>
   )

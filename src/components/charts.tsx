@@ -44,14 +44,14 @@ export function PricePerfMap({ compact = false }: { compact?: boolean }) {
         fill="var(--brass-soft)" stroke="var(--brass)" strokeWidth="1.4" strokeDasharray="5 4"
       />
       <text x={x(z.priceMin) + 6} y={y(z.effMin) - 7} style={{ ...tickStyle, fill: 'var(--brass)', fontSize: 10, fontWeight: 500 }}>
-        OPPORTUNITY ZONE
+        机会窗口
       </text>
 
       {/* TARGET marker */}
       <circle cx={x(2040)} cy={y(160)} r={compact ? 7 : 9} fill="none" stroke="var(--brass)" strokeWidth="2" />
       <circle cx={x(2040)} cy={y(160)} r="2.4" fill="var(--brass)" />
       {!compact && (
-        <text x={x(2040)} y={y(165)} textAnchor="middle" style={{ ...tickStyle, fill: 'var(--brass)', fontWeight: 500 }}>TARGET 150W</text>
+        <text x={x(2040)} y={y(165)} textAnchor="middle" style={{ ...tickStyle, fill: 'var(--brass)', fontWeight: 500 }}>目标 150W</text>
       )}
 
       {/* SKU bubbles */}
@@ -96,9 +96,9 @@ export function SpecLandscape() {
   return (
     <div>
       {[
-        { tier: 'VALUE / MAINSTREAM', eff: '90–110 lm/W', note: '白牌与电商款主战场 · PF 0.5–0.7', w: 100, ev: 'eve-efficacy' },
-        { tier: 'PROFESSIONAL', eff: '130–160+ lm/W', note: '工程与分销渠道要求 · PF ≥ 0.9', w: 58, ev: 'prof-band' },
-        { tier: 'PREMIUM', eff: '160+ lm/W + 智能', note: 'DALI / 传感 / 平台化 · 项目标', w: 30, ev: 'philips-pos' },
+        { tier: '价值 / 主流层', eff: '90–110 lm/W', note: '白牌与电商款主战场 · PF 0.5–0.7', w: 100, ev: 'eve-efficacy' },
+        { tier: '专业层', eff: '130–160+ lm/W', note: '工程与分销渠道要求 · PF ≥ 0.9', w: 58, ev: 'prof-band' },
+        { tier: '高端层', eff: '160+ lm/W + 智能', note: 'DALI / 传感 / 平台化 · 项目标', w: 30, ev: 'philips-pos' },
       ].map((t, i) => (
         <button key={t.tier} onClick={() => openEvidence(t.ev)}
           className="flex w-full items-baseline gap-4 text-left"
@@ -129,8 +129,8 @@ export function ChannelMatrix() {
       <table style={{ borderCollapse: 'collapse', width: '100%', minWidth: 420 }}>
         <thead>
           <tr>
-            {['BRAND', ...channels.map((c) => c.toUpperCase()), 'PRICE BAND'].map((h) => (
-              <th key={h} className="micro" style={{ textAlign: h === 'BRAND' ? 'left' : 'center', padding: '6px 10px', borderBottom: '1px solid var(--hairline)', fontWeight: 400 }}>{h}</th>
+            {['品牌', ...channels.map((c) => c.toUpperCase()), '价格带'].map((h) => (
+              <th key={h} className="micro" style={{ textAlign: h === '品牌' ? 'left' : 'center', padding: '6px 10px', borderBottom: '1px solid var(--hairline)', fontWeight: 400 }}>{h}</th>
             ))}
           </tr>
         </thead>
@@ -153,7 +153,7 @@ export function ChannelMatrix() {
           ))}
         </tbody>
       </table>
-      <div className="proto-note" style={{ marginTop: 10 }}>● 主力渠道 ◐ 有存在 — 无销量数据 · PROXY, NOT SHARE</div>
+      <div className="proto-note" style={{ marginTop: 10 }}>● 主力渠道 ◐ 有存在 — 无销量数据 · 观察指标，非市场份额</div>
     </div>
   )
 }
@@ -176,8 +176,8 @@ export function PresenceBars() {
         </div>
       ))}
       <div className="proto-note" style={{ marginTop: 12, lineHeight: 1.7 }}>
-        MARKET PRESENCE INDEX — 渠道覆盖 × SKU 数 × 电商存在 × 搜索可见度 × 价格覆盖。
-        这不是 MARKET SHARE，只是 PRESENCE PROXY。
+        市场存在指数 — 渠道覆盖 × SKU 数 × 电商存在 × 搜索可见度 × 价格覆盖。
+        这不是市场份额，只是存在度观察指标。
       </div>
     </div>
   )
@@ -189,8 +189,8 @@ export function GapMap({ animate = false }: { animate?: boolean }) {
   return (
     <div>
       <div className="flex items-baseline justify-between pb-2">
-        <span className="micro">EVE TODAY ●</span>
-        <span className="micro">○ PROFESSIONAL BENCHMARK</span>
+        <span className="micro">● EVE 现状</span>
+        <span className="micro">○ 专业层基准</span>
       </div>
       {GAP_ROWS.map((g) => {
         const l = (g.eve / g.max) * 100
@@ -241,7 +241,7 @@ export function DimBars() {
           </div>
           {d.score === null && (
             <div className="mono" style={{ fontSize: 10, letterSpacing: '0.12em', color: 'var(--ev-internal)', marginTop: 5, marginLeft: 180 }}>
-              INTERNAL DATA REQUIRED
+              需内部数据
             </div>
           )}
         </button>
@@ -254,11 +254,11 @@ export function DimBars() {
 export function Waterfall() {
   const { scenario } = useStore()
   const steps = [
-    { label: 'RETAIL', v: scenario.retail, kind: 'abs' as const },
-    { label: 'RETAIL MARGIN', v: -scenario.retailMargin, kind: 'delta' as const },
-    { label: 'DIST MARGIN', v: -scenario.distMargin, kind: 'delta' as const },
-    { label: 'LOG + TAX', v: -(scenario.logistics + scenario.tax), kind: 'delta' as const },
-    { label: 'TARGET COST', v: scenario.targetCost, kind: 'abs' as const },
+    { label: '零售价', v: scenario.retail, kind: 'abs' as const },
+    { label: '零售毛利', v: -scenario.retailMargin, kind: 'delta' as const },
+    { label: '分销毛利', v: -scenario.distMargin, kind: 'delta' as const },
+    { label: '物流+税', v: -(scenario.logistics + scenario.tax), kind: 'delta' as const },
+    { label: '目标成本', v: scenario.targetCost, kind: 'abs' as const },
   ]
   const max = scenario.retail * 1.08
   const H = 190
@@ -267,7 +267,7 @@ export function Waterfall() {
     const from = s.kind === 'abs' ? 0 : acc
     const to = s.kind === 'abs' ? s.v : acc + s.v
     if (s.kind === 'delta') acc += s.v
-    if (s.kind === 'abs' && s.label === 'RETAIL') acc = s.v
+    if (s.kind === 'abs' && s.label === '零售价') acc = s.v
     return { ...s, lo: Math.min(from, to), hi: Math.max(from, to) }
   })
   return (
@@ -278,7 +278,7 @@ export function Waterfall() {
         const x = gap + i * (bw + gap)
         const yHi = H - (b.hi / max) * H
         const yLo = H - (b.lo / max) * H
-        const isFinal = b.label === 'TARGET COST'
+        const isFinal = b.label === '目标成本'
         return (
           <g key={b.label}>
             <rect x={x} y={yHi} width={bw} height={Math.max(2, yLo - yHi)}
@@ -312,10 +312,10 @@ export function MapLegend() {
         </span>
       ))}
       <span className="inline-flex items-center gap-1.5" style={{ fontSize: 12, color: 'var(--graphite)' }}>
-        <span className="evdot" style={{ background: 'none', border: '1.4px dashed var(--graphite)' }} />claimed, unverified
+        <span className="evdot" style={{ background: 'none', border: '1.4px dashed var(--graphite)' }} />标称未验证
       </span>
       <span className="inline-flex items-center gap-1.5" style={{ fontSize: 12, color: 'var(--brass)' }}>
-        ◎ TARGET
+        ◎ 目标
       </span>
     </div>
   )
