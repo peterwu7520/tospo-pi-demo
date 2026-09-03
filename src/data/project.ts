@@ -577,26 +577,20 @@ export const KILLS: { what: string; why: string }[] = [
   { what: '一体化太阳能路灯', why: '项目渠道与 EVE 主力错位 —— 先验证渠道，再议。' },
 ]
 
-// ─── Story acts v2 — ANSWER → PROOF → TRUST → DECIDE ───────────────────────
+// ─── Story acts v3 — 5 幕，每个事实只讲一次 ─────────────────────────────────
+// ANSWER → WHY NOW → PROOF → VERDICT → NEXT.
+// 规格表 / 形态解剖 / 瀑布账不进故事线，它们的家在 PRODUCT / PLAN。
 
-export type ActKind =
-  | 'answer' | 'whynow' | 'window' | 'fit' | 'hero' | 'pk'
-  | 'form' | 'proof' | 'math' | 'derisk' | 'next'
+export type ActKind = 'answer' | 'whynow' | 'proof' | 'verdict' | 'next'
 
 export interface Act { n: number; kind: ActKind; dark: boolean; kicker: string; title: string; body?: string; ev?: string }
 
 export const ACTS: Act[] = [
-  { n: 1, kind: 'answer',  dark: true,  kicker: 'THE ANSWER',      title: 'EVE 的下一代，我们已经替你想好了' },
-  { n: 2, kind: 'whynow',  dark: false, kicker: 'WHY NOW',         title: '品类在升级，你不在场', body: '每一个项目季，专业层订单都在流向有 130+ lm/W 产品线的品牌。', ev: 'order-flow' },
-  { n: 3, kind: 'window',  dark: false, kicker: 'THE WINDOW',      title: '฿1,890–2,190 × 160 lm/W 是空位', body: '白牌有价格无可信性能，Philips 有性能但价格翻倍。这个窗口不会一直开着。', ev: 'price-window' },
-  { n: 4, kind: 'fit',     dark: false, kicker: 'WHY EVE',         title: '门票你已经拿在手里', ev: 'eve-assets' },
-  { n: 5, kind: 'hero',    dark: false, kicker: 'THE HERO',        title: '150W —— 主力利润款', ev: 'target-160' },
-  { n: 6, kind: 'pk',      dark: false, kicker: 'HEAD-TO-HEAD',    title: '同档对决，胜负摆在桌面', ev: 'lab-proof' },
-  { n: 7, kind: 'form',    dark: true,  kicker: 'WHY THIS FORM',   title: '形态来自工程，工程来自市场' },
-  { n: 8, kind: 'proof',   dark: true,  kicker: 'THE PROOF',       title: '我们测过，不是听说', ev: 'lab-proof' },
-  { n: 9, kind: 'math',    dark: false, kicker: 'THE MATH',        title: '账算给你看', body: '零售 → 渠道毛利 → 目标采购成本。Scenario，不是报价。' },
-  { n: 10, kind: 'derisk', dark: false, kicker: 'DE-RISK',         title: '哪里可能错，怎么验证' },
-  { n: 11, kind: 'next',   dark: false, kicker: 'NEXT STEP',       title: '选一款，4 周出样' },
+  { n: 1, kind: 'answer',  dark: true,  kicker: 'THE ANSWER',   title: 'EVE 的下一代，我们已经替你想好了' },
+  { n: 2, kind: 'whynow',  dark: false, kicker: 'WHY NOW',      title: '品类在升级，你不在场', body: '每一个项目季，专业层订单都在流向有 130+ lm/W 产品线的品牌。', ev: 'order-flow' },
+  { n: 3, kind: 'proof',   dark: true,  kicker: 'THE PROOF',    title: '空位是真的，标称是假的', ev: 'lab-proof' },
+  { n: 4, kind: 'verdict', dark: false, kicker: 'HEAD-TO-HEAD', title: '同档对决，胜负摆在桌面', ev: 'lab-proof' },
+  { n: 5, kind: 'next',    dark: false, kicker: 'NEXT STEP',    title: '选一款，4 周出样' },
 ]
 
 // ─── Misc ───────────────────────────────────────────────────────────────────
